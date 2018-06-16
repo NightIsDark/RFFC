@@ -1,1 +1,0 @@
-"USER\main.c" OPTIMIZE (9,SPEED) BROWSE INCDIR(.\driver;.\F33x;.\RFFC) DEBUG OBJECTEXTEND PRINT(.\Listings\main.lst) TABS (2) OBJECT(.\Objects\main.obj)
