@@ -1,0 +1,25 @@
+C51 COMPILER V9.55   PARA                                                                  06/14/2018 23:18:53 PAGE 1   
+
+
+C51 COMPILER V9.55, COMPILATION OF MODULE PARA
+OBJECT MODULE PLACED IN .\Objects\para.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE USER\para.c OPTIMIZE(9,SPEED) BROWSE INCDIR(.\driver;.\F33x;.\RFFC) DEBU
+                    -G OBJECTEXTEND PRINT(.\Listings\para.lst) TABS(2) OBJECT(.\Objects\para.obj)
+
+line level    source
+
+   1          unsigned long code freq;      //?CO?PARA(0x1A40)  8000(DEC)
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   ----    ----
+   CONSTANT SIZE    =      4    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

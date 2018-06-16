@@ -1,0 +1,629 @@
+C51 COMPILER V9.55   RFFC2071                                                              06/16/2018 10:42:02 PAGE 1   
+
+
+C51 COMPILER V9.55, COMPILATION OF MODULE RFFC2071
+OBJECT MODULE PLACED IN .\Objects\RFFC2071.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE RFFC\RFFC2071.c OPTIMIZE(9,SPEED) BROWSE INCDIR(.\driver;.\F33x;.\RFFC) 
+                    -DEBUG OBJECTEXTEND PRINT(.\Listings\RFFC2071.lst) TABS(2) OBJECT(.\Objects\RFFC2071.obj)
+
+line level    source
+
+   1          #include "RFFC2071.h"
+   2          #include "RFFC2071_IO.h"
+   3          #include <math.h>
+   4          
+   5          #define Num_Max 10
+   6          
+   7          #define REF_IN (2600)         //10MHz
+   8          #define REF_DIV (1)           //10MHz
+   9          
+  10          
+  11          
+  12          
+  13          // U16 databuf_2071[TABLE_2071_NUM*2] = {
+  14          //  /* chip1: rx */
+  15          //  0xBEFA, 0x4064, 0x9055, 0x2D02, 0xACBF, 
+  16          //  0xACBF, 0x0028, 0x0028, 0xFF00, 0x8220, 
+  17          //  0x0202, 0x4800, 0x1A94, 0xD89D, 0x8900,
+  18          //  0x1E84, 0x89D8, 0x9D00, 0x2A80, 0x0000,
+  19          //  0x0000, 0x0000, 0x0000, 0x4900, 0x0281,
+  20          //  0xF00F, 0x0000, 0x0005, 0xC840, 0x1000, 0x0005,
+  21          //  /* chip2: tx */
+  22          //  0xBEFA, 0x4064, 0x9055, 0x2D02, 0xACBF, 
+  23          //  0xACBF, 0x0028, 0x0028, 0xFF00, 0x8220, 
+  24          //  0x0202, 0x4800, 0x1A94, 0xD89D, 0x8900,
+  25          //  0x1E84, 0x89D8, 0x9D00, 0x2A80, 0x0000,
+  26          //  0x0000, 0x0000, 0x0000, 0x4900, 0x0281,
+  27          //  0xF00F, 0x0000, 0x0005, 0xC840, 0x1000, 0x0005,
+  28          // } 
+  29          U32 idata F_PD ;    //10kHz
+  30          U32 idata F_VCO ;
+  31          
+  32          bit RFFC2071_lock(void)
+  33          {
+  34   1        return LOCK?1:0;
+  35   1      }
+  36          static void wait_time(void)
+  37          {
+  38   1        U8 i ;
+  39   1        for(i=0;i<100;i--);
+  40   1      }
+  41          
+  42          /*
+  43          ** Function name:           RFFC2071_write
+  44          ** Descriptions:            写数据
+  45          ** input parameters:        chip: 要操作的芯片
+  46          **                          add： 寄存器地址, 7位
+  47          **                          ret:  要写入的数据，16位                      
+  48          ** output parameters:       none
+  49          ** Returned value:          none
+  50          */
+  51          void RFFC2071_write(U8 add, U16 ret)
+  52          {
+  53   1        U8 i ;
+  54   1        
+C51 COMPILER V9.55   RFFC2071                                                              06/16/2018 10:42:02 PAGE 2   
+
+  55   1        CLK_2071_1;
+  56   1        wait_time();
+  57   1        CLK_2071_0;
+  58   1        
+  59   1      //  switch(chip)
+  60   1      //  {
+  61   1      //    case chip_rx_2071:  RX_2071_LE_0; break;
+  62   1      //    case chip_tx_2071:  TX_2071_LE_0; break;
+  63   1      //  } 
+  64   1        LE_2071_0;
+  65   1        
+  66   1        wait_time();  
+  67   1        CLK_2071_1;
+  68   1        wait_time();
+  69   1        CLK_2071_0;
+  70   1        /* 发 "写" 操作标志 */  
+  71   1        add &= ~0x80 ;  
+  72   1        /* 发送7位地址，高位在前，上升沿有效 */
+  73   1        for(i=0;i<8;i++)
+  74   1        {     
+  75   2          if((add & 0x80)!=0)   
+  76   2            DATA_2071_1;
+  77   2          else            
+  78   2            DATA_2071_0;
+  79   2          
+  80   2          add <<= 1 ;
+  81   2          wait_time();
+  82   2          CLK_2071_1;
+  83   2          wait_time();
+  84   2          CLK_2071_0;
+  85   2        }
+  86   1        
+  87   1        /* 发送16位数据，高位在前，上升沿有效 */
+  88   1        for(i=0;i<16;i++)
+  89   1        {
+  90   2          if((ret & 0x8000)!=0)   
+  91   2            DATA_2071_1;
+  92   2          else            
+  93   2            DATA_2071_0;
+  94   2          
+  95   2          ret <<= 1 ;
+  96   2          wait_time();
+  97   2          CLK_2071_1;
+  98   2          wait_time();
+  99   2          CLK_2071_0;
+ 100   2        } 
+ 101   1        LE_2071_1;
+ 102   1      //  switch(chip)
+ 103   1      //  {
+ 104   1      //    case chip_rx_2071:  RX_2071_LE_1; break;
+ 105   1      //    case chip_tx_2071:  TX_2071_LE_1; break;
+ 106   1      //  }
+ 107   1        wait_time();
+ 108   1        CLK_2071_1;
+ 109   1        wait_time();
+ 110   1        CLK_2071_0;
+ 111   1      }
+ 112          
+ 113          
+ 114          
+ 115          /*
+ 116          ** Function name:           RFFC2071_read，三线制总线
+C51 COMPILER V9.55   RFFC2071                                                              06/16/2018 10:42:02 PAGE 3   
+
+ 117          ** Descriptions:            读数据
+ 118          ** input parameters:        chip: 要操作的芯片
+ 119          **                          add： 寄存器地址, 7位
+ 120          **                                                
+ 121          ** output parameters:       ret:  要读出的数据，16位
+ 122          ** Returned value:          none
+ 123          */
+ 124          U16 RFFC2071_read(U8 add)
+ 125          {
+ 126   1        U8 i ;
+ 127   1        U16 ret ;
+ 128   1        
+ 129   1        CLK_2071_1;
+ 130   1        wait_time();
+ 131   1        CLK_2071_0;
+ 132   1        LE_2071_0;
+ 133   1      //  switch(chip)
+ 134   1      //  {
+ 135   1      //    case chip_rx_2071:  RX_2071_LE_0; break;
+ 136   1      //    case chip_tx_2071:  TX_2071_LE_0; break;
+ 137   1      //  } 
+ 138   1        wait_time();  
+ 139   1        CLK_2071_1;
+ 140   1        wait_time();
+ 141   1        CLK_2071_0;
+ 142   1        
+ 143   1        add |= 0x80 ; 
+ 144   1        /* 发送7位地址，高位在前，上升沿有效 */
+ 145   1        for(i=0;i<8;i++)
+ 146   1        {
+ 147   2          if((add & 0x80)!=0)   
+ 148   2            DATA_2071_1;
+ 149   2          else            
+ 150   2            DATA_2071_0;
+ 151   2          
+ 152   2          add<<=1 ;
+ 153   2          wait_time();
+ 154   2          CLK_2071_1;
+ 155   2          wait_time();
+ 156   2          CLK_2071_0;
+ 157   2        }   
+ 158   1      
+ 159   1        wait_time();
+ 160   1        CLK_2071_1;
+ 161   1        wait_time();  
+ 162   1        CLK_2071_0; 
+ 163   1        wait_time();
+ 164   1        CLK_2071_1;
+ 165   1        wait_time();
+ 166   1        
+ 167   1        //输入
+ 168   1      //  GPIO_DDR_INPUT(DATA_2071_PORT, DATA_2071_PIN);
+ 169   1        /* 发送16位数据，高位在前，下降沿有效 */
+ 170   1        for(i=0;i<16;i++)
+ 171   1        {
+ 172   2          ret <<= 1 ;
+ 173   2          CLK_2071_0; 
+ 174   2          if(DATA_2071_R)   
+ 175   2            ret |= 1;
+ 176   2          else            
+ 177   2            ret &= ~1;  
+ 178   2            
+C51 COMPILER V9.55   RFFC2071                                                              06/16/2018 10:42:02 PAGE 4   
+
+ 179   2          wait_time();
+ 180   2          CLK_2071_1;
+ 181   2          wait_time();
+ 182   2        } 
+ 183   1        
+ 184   1      //  //输出
+ 185   1      //  GPIO_DDR_OUTPUT(DATA_2071_PORT, DATA_2071_PIN);
+ 186   1        LE_2071_1;
+ 187   1      //  switch(chip)
+ 188   1      //  {
+ 189   1      //    case chip_rx_2071:  RX_2071_LE_1; break;
+ 190   1      //    case chip_tx_2071:  TX_2071_LE_1; break;
+ 191   1      //  }
+ 192   1        wait_time();
+ 193   1        CLK_2071_0;
+ 194   1        
+ 195   1        return ret;
+ 196   1      }
+ 197          
+ 198          void RFFC2071_REG_INIT(S_RFFC2071_REG * rffc2071_reg_t)
+ 199          {
+ 200   1        *(U16 *) &(rffc2071_reg_t->reg_LF)        = RFFC2071_VALUE_LF;
+ 201   1        *(U16 *) &(rffc2071_reg_t->reg_XO)        = RFFC2071_VALUE_XO;
+ 202   1        *(U16 *) &(rffc2071_reg_t->reg_CAL_TIME)  = RFFC2071_VALUE_CAL_TIME;
+ 203   1        *(U16 *) &(rffc2071_reg_t->reg_VCO_CTRL)  = RFFC2071_VALUE_VCO_CTRL;
+ 204   1        *(U16 *) &(rffc2071_reg_t->reg_CT_CAL1) = RFFC2071_VALUE_CT_CAL1;
+ 205   1        *(U16 *) &(rffc2071_reg_t->reg_CT_CAL2) = RFFC2071_VALUE_CT_CAL2;
+ 206   1        *(U16 *) &(rffc2071_reg_t->reg_PLL_CAL1)  = RFFC2071_VALUE_PLL_CAL1;
+ 207   1        *(U16 *) &(rffc2071_reg_t->reg_PLL_CAL2)  = RFFC2071_VALUE_PLL_CAL2;
+ 208   1        *(U16 *) &(rffc2071_reg_t->reg_VCO_AUTO)  = RFFC2071_VALUE_VCO_AUTO;
+ 209   1        *(U16 *) &(rffc2071_reg_t->reg_PLL_CTRL)  = RFFC2071_VALUE_PLL_CTRL;
+ 210   1        *(U16 *) &(rffc2071_reg_t->reg_PLL_BIAS)  = RFFC2071_VALUE_PLL_BIAS;
+ 211   1        *(U16 *) &(rffc2071_reg_t->reg_MIX_CONT)  = RFFC2071_VALUE_MIX_CONT;
+ 212   1        *(U16 *) &(rffc2071_reg_t->reg_P1_FREQ1)  = RFFC2071_VALUE_P1_FREQ1;
+ 213   1        *(U16 *) &(rffc2071_reg_t->reg_P1_FREQ2)  = RFFC2071_VALUE_P1_FREQ2;
+ 214   1        *(U16 *) &(rffc2071_reg_t->reg_P1_FREQ3)  = RFFC2071_VALUE_P1_FREQ3;
+ 215   1        *(U16 *) &(rffc2071_reg_t->reg_P2_FREQ1)  = RFFC2071_VALUE_P2_FREQ1;
+ 216   1        *(U16 *) &(rffc2071_reg_t->reg_P2_FREQ2)  = RFFC2071_VALUE_P2_FREQ2;
+ 217   1        *(U16 *) &(rffc2071_reg_t->reg_P2_FREQ3)  = RFFC2071_VALUE_P2_FREQ3;
+ 218   1        *(U16 *) &(rffc2071_reg_t->reg_FN_CTRL) = RFFC2071_VALUE_FN_CTRL;
+ 219   1        *(U16 *) &(rffc2071_reg_t->reg_EXT_MOD) = RFFC2071_VALUE_EXT_MOD;
+ 220   1        *(U16 *) &(rffc2071_reg_t->reg_FMOD)      = RFFC2071_VALUE_FMOD;
+ 221   1        *(U16 *) &(rffc2071_reg_t->reg_SDI_CTRL)  = RFFC2071_VALUE_SDI_CTRL;
+ 222   1        *(U16 *) &(rffc2071_reg_t->reg_GPO)     = RFFC2071_VALUE_GPO;
+ 223   1        *(U16 *) &(rffc2071_reg_t->reg_T_VCO)   = RFFC2071_VALUE_T_VCO;
+ 224   1        *(U16 *) &(rffc2071_reg_t->reg_IQMOD1)    = RFFC2071_VALUE_IQMOD1;
+ 225   1        *(U16 *) &(rffc2071_reg_t->reg_IQMOD2)    = RFFC2071_VALUE_IQMOD2;
+ 226   1        *(U16 *) &(rffc2071_reg_t->reg_IQMOD3)    = RFFC2071_VALUE_IQMOD3;
+ 227   1        *(U16 *) &(rffc2071_reg_t->reg_IQMOD4)    = RFFC2071_VALUE_IQMOD4;
+ 228   1        *(U16 *) &(rffc2071_reg_t->reg_T_CTRL)    = RFFC2071_VALUE_T_CTRL;
+ 229   1        *(U16 *) &(rffc2071_reg_t->reg_DEV_CTRL)  = RFFC2071_VALUE_DEV_CTRL;
+ 230   1        *(U16 *) &(rffc2071_reg_t->reg_TEST)      = RFFC2071_VALUE_TEST;
+ 231   1      }
+ 232          //返回f_pd鉴相频率
+ 233          U32 RFFC2071_PD_INIT(S_RFFC2071_REG * rffc2071_reg_t)
+ 234          {
+ 235   1        if(REF_DIV>1)
+ 236   1        {
+ 237   2          rffc2071_reg_t->reg_PLL_CTRL.divby  = 0;
+ 238   2          rffc2071_reg_t->reg_PLL_CTRL.clkdiv = REF_DIV;    
+ 239   2        }else
+ 240   1        {
+C51 COMPILER V9.55   RFFC2071                                                              06/16/2018 10:42:02 PAGE 5   
+
+ 241   2          rffc2071_reg_t->reg_PLL_CTRL.divby  = 1;
+ 242   2          rffc2071_reg_t->reg_PLL_CTRL.clkdiv = 0;
+ 243   2        }
+ 244   1        
+ 245   1        F_PD = REF_IN / REF_DIV;    //Hz
+ 246   1        return F_PD;
+ 247   1      }
+ 248          //配置N分频
+ 249          void RFFC2071_N_INIT(U32 Fre,S_RFFC2071_REG * rffc2071_reg_t)
+ 250          {
+ 251   1        U16 N,N_msb,N_lsb;
+ 252   1        U32 buffer,fbkdiv;
+ 253   1        U8 i,n_lo;
+ 254   1        
+ 255   1        n_lo = 540000 / Fre ;  //10kHz 
+ 256   1        
+ 257   1        for(i=1;i<=5;i++)
+ 258   1        {
+ 259   2          if(n_lo < pow(2,i))
+ 260   2          { 
+ 261   3            n_lo = i-1;
+ 262   3            break;
+ 263   3          }
+ 264   2        }
+ 265   1        rffc2071_reg_t->reg_P1_FREQ1.p1lodiv  = n_lo;   //p1lodiv
+ 266   1        rffc2071_reg_t->reg_P2_FREQ1.p2lodiv  = n_lo;   //p1lodiv 
+ 267   1        
+ 268   1        F_VCO = Fre * pow(2,n_lo) ;
+ 269   1        if(F_VCO > 320000)    //10kHz 
+ 270   1        {   
+ 271   2          fbkdiv = 4;
+ 272   2          rffc2071_reg_t->reg_P1_FREQ1.p1presc = 2;
+ 273   2          rffc2071_reg_t->reg_P2_FREQ1.p2presc = 2;
+ 274   2        }
+ 275   1        else
+ 276   1        {   
+ 277   2          fbkdiv = 2; 
+ 278   2          rffc2071_reg_t->reg_P1_FREQ1.p1presc = 1;
+ 279   2          rffc2071_reg_t->reg_P2_FREQ1.p2presc = 1;
+ 280   2        }
+ 281   1        
+ 282   1        N = F_VCO / F_PD / fbkdiv;
+ 283   1        buffer = F_VCO - ( N * F_PD * fbkdiv);
+ 284   1        N_msb =  ((buffer << 16) / F_PD ) / fbkdiv;
+ 285   1        buffer = (buffer << 16) - (N_msb * F_PD * fbkdiv);
+ 286   1        N_lsb =  ((buffer << 8) / F_PD ) / fbkdiv;
+ 287   1        
+ 288   1        rffc2071_reg_t->reg_P1_FREQ1.p1n  = N;
+ 289   1        rffc2071_reg_t->reg_P1_FREQ2.p1nmsb = N_msb;
+ 290   1        rffc2071_reg_t->reg_P1_FREQ3.p1nlsb = N_lsb;
+ 291   1        
+ 292   1        rffc2071_reg_t->reg_P2_FREQ1.p2n  = N;
+ 293   1        rffc2071_reg_t->reg_P2_FREQ2.p2nmsb = N_msb;
+ 294   1        rffc2071_reg_t->reg_P2_FREQ3.p2nlsb = N_lsb;
+ 295   1        
+ 296   1      }
+ 297          void RFFC2071_reset_device(S_RFFC2071_REG * rffc2071_reg_t)
+ 298          {
+ 299   1        U16 ret = 0;
+ 300   1        
+ 301   1        
+ 302   1        D_RESET = 1;
+C51 COMPILER V9.55   RFFC2071                                                              06/16/2018 10:42:02 PAGE 6   
+
+ 303   1        ENBL    = 1;
+ 304   1        wait_time();  
+ 305   1        
+ 306   1        rffc2071_reg_t->reg_SDI_CTRL.reset = 1;
+ 307   1        ret =   *(U16 *)&(rffc2071_reg_t->reg_SDI_CTRL);            
+ 308   1        RFFC2071_write(RFFC2071_MAP_SDI_CTRL, ret );
+ 309   1        
+ 310   1        rffc2071_reg_t->reg_SDI_CTRL.reset = 0;
+ 311   1      }
+ 312          
+ 313          //1
+ 314          void RFFC2071_setup_device(S_RFFC2071_REG * rffc2071_reg_t)
+ 315          {
+ 316   1        U16 ret = 0;
+ 317   1        
+ 318   1        /* P2_FREQ1: p2vcosel = 0 */
+ 319   1        rffc2071_reg_t->reg_P2_FREQ1.p2vcosel = 0;
+ 320   1        ret =   *(U16 *)&(rffc2071_reg_t->reg_P2_FREQ1);            
+ 321   1        RFFC2071_write(RFFC2071_MAP_P2_FREQ1, ret );      
+ 322   1        
+ 323   1        /* VCO_AUTO: ct_max =127, ct_min = 0*/
+ 324   1      ///* VCO_AUTO: ct_max =127, ct_min = 3*/
+ 325   1      //  rffc2071_reg_t->reg_VCO_AUTO._auto = 1;
+ 326   1        rffc2071_reg_t->reg_VCO_AUTO.ctmin = 0;
+ 327   1        rffc2071_reg_t->reg_VCO_AUTO.ctmax = 0x7f;
+ 328   1        ret =   *(U16 *)&(rffc2071_reg_t->reg_VCO_AUTO);            
+ 329   1        RFFC2071_write(RFFC2071_MAP_VCO_AUTO, ret );  
+ 330   1        
+ 331   1        /* CT_CAL1: p1ctv = 16 */
+ 332   1      //  /* CT_CAL1: p1cgain = 5 */  
+ 333   1      //  /* CT_CAL1: p1ctv = 16 */   
+ 334   1      //  rffc2071_reg_t->reg_CT_CAL1.p1ctgain = 5;
+ 335   1        rffc2071_reg_t->reg_CT_CAL1.p1ctv = 12;
+ 336   1        ret =   *(U16 *)&(rffc2071_reg_t->reg_CT_CAL1);           
+ 337   1        RFFC2071_write(RFFC2071_MAP_CT_CAL1, ret );
+ 338   1        
+ 339   1        /* CT_CAL2: p2ctv = 12 */
+ 340   1      //  /* CT_CAL2: p1cgain = 5 */  
+ 341   1      //  /* CT_CAL2: p1ctv = 16 */   
+ 342   1      //  rffc2071_reg_t->reg_CT_CAL2.p2ctgain = 5;
+ 343   1        rffc2071_reg_t->reg_CT_CAL2.p2ctv = 12;
+ 344   1        ret =   *(U16 *)&(rffc2071_reg_t->reg_CT_CAL2);           
+ 345   1        RFFC2071_write(RFFC2071_MAP_CT_CAL2, ret );
+ 346   1        
+ 347   1        /* TEST: rgbyp = 1 */
+ 348   1        rffc2071_reg_t->reg_TEST.rgbyp = 1;
+ 349   1        ret =   *(U16 *)&(rffc2071_reg_t->reg_TEST);            
+ 350   1        RFFC2071_write(RFFC2071_MAP_TEST, ret );
+ 351   1        
+ 352   1          /* SDI_CTRL: sipin =1 */
+ 353   1        #if CONTROL_3_WIRE_BUS
+ 354   1          rffc2071_reg_t->reg_SDI_CTRL.sipin = 1;
+ 355   1          ret =   *(U16 *)&(rffc2071_reg_t->reg_SDI_CTRL);            
+ 356   1          RFFC2071_write(RFFC2071_MAP_SDI_CTRL, ret );
+ 357   1        #endif
+ 358   1      
+ 359   1          /* SDI_CTRL: addr = 1 */
+ 360   1        #if MULTISLICE_MODE
+                  rffc2071_reg_t->reg_SDI_CTRL.addr = 1;
+                #else
+ 363   1          rffc2071_reg_t->reg_SDI_CTRL.addr = 0;
+ 364   1        #endif
+C51 COMPILER V9.55   RFFC2071                                                              06/16/2018 10:42:02 PAGE 7   
+
+ 365   1          ret =   *(U16 *)&(rffc2071_reg_t->reg_SDI_CTRL);            
+ 366   1          RFFC2071_write(RFFC2071_MAP_SDI_CTRL, ret );
+ 367   1        
+ 368   1      
+ 369   1          /* MIX_CONT: fulld = 1 */
+ 370   1        #if FULL_DUPLEX
+ 371   1          rffc2071_reg_t->reg_MIX_CONT.fulld = 1;
+ 372   1        #else
+                  rffc2071_reg_t->reg_MIX_CONT.fulld = 0;
+                #endif
+ 375   1          ret =   *(U16 *)&(rffc2071_reg_t->reg_MIX_CONT);            
+ 376   1          RFFC2071_write(RFFC2071_MAP_MIX_CONT, ret );
+ 377   1        
+ 378   1          
+ 379   1        /* MIX_CONT: p1mixidd, p2mixidd */
+ 380   1        rffc2071_reg_t->reg_MIX_CONT.p1mixidd = VALUE_MIX_CONT_P1MIXIDD;
+ 381   1        rffc2071_reg_t->reg_MIX_CONT.p2mixidd = VALUE_MIX_CONT_P2MIXIDD;
+ 382   1        ret =   *(U16 *)&(rffc2071_reg_t->reg_MIX_CONT);            
+ 383   1        RFFC2071_write(RFFC2071_MAP_MIX_CONT, ret );    
+ 384   1      }
+ 385          //2
+ 386          void RFFC2071_set_calibration(S_RFFC2071_REG * rffc2071_reg_t)
+ 387          {
+ 388   1        U16 idata ret = 0;
+ 389   1        
+ 390   1        /* GPO: p1gpio, p2gpio and gate */  
+ 391   1        #if GENE_PURP_OUTPUT
+                  rffc2071_reg_t->reg_GPO.p1gpo = VALUE_GPO_P1GPIO;
+                  rffc2071_reg_t->reg_GPO.p2gpo = VALUE_GPO_P2GPIO;
+                  rffc2071_reg_t->reg_GPO.gate  = VALUE_GPO_GATE;  //gate disable
+                #endif
+ 396   1          
+ 397   1        /* GPO: lock */
+ 398   1        #if GPO_LOCK
+ 399   1          rffc2071_reg_t->reg_GPO.lock   = 1;
+ 400   1        #else
+                  rffc2071_reg_t->reg_GPO.lock   = 0;
+                #endif
+ 403   1          ret =   *(U16 *)&(rffc2071_reg_t->reg_GPO);           
+ 404   1          RFFC2071_write(RFFC2071_MAP_GPO, ret );
+ 405   1      
+ 406   1        /* SDI_CTRL: 4 wire */
+ 407   1        #if PROG_4_WIRE
+                  rffc2071_reg_t->reg_SDI_CTRL._4wire  = 1;
+                #else
+ 410   1          rffc2071_reg_t->reg_SDI_CTRL._4wire  = 0;
+ 411   1        #endif
+ 412   1          ret =   *(U16 *)&(rffc2071_reg_t->reg_SDI_CTRL);            
+ 413   1          RFFC2071_write(RFFC2071_MAP_SDI_CTRL, ret );
+ 414   1        
+ 415   1      
+ 416   1        /* 
+ 417   1          EXT_MOD: modstep, modsetup
+ 418   1          FMOD:    modulation
+ 419   1        */
+ 420   1        #if FREQ_MODUL
+                  rffc2071_reg_t->reg_EXT_MOD.modstep   = VALUE_EXT_MOD_MODSTEP;
+                  rffc2071_reg_t->reg_EXT_MOD.modsetup  = VALUE_EXT_MOD_MODSETUP;
+                  ret =   *(U16 *)&(rffc2071_reg_t->reg_EXT_MOD);           
+                  RFFC2071_write(RFFC2071_MAP_EXT_MOD, ret );
+              
+                  rffc2071_reg_t->reg_FMOD.modulation   = VALUE_FMOD;
+C51 COMPILER V9.55   RFFC2071                                                              06/16/2018 10:42:02 PAGE 8   
+
+                  RFFC2071_write(RFFC2071_MAP_FMOD, ret );
+                #endif    
+ 429   1      }
+ 430          
+ 431          //3
+ 432          void RFFC2071_set_oper_freq(S_RFFC2071_REG * rffc2071_reg_t)
+ 433          {
+ 434   1        U16 ret = 0;
+ 435   1        
+ 436   1        /*
+ 437   1          VCO_AUTO: auto
+ 438   1          P1_FREQ1: p1vcosel
+ 439   1          P2_FREQ1: p2vcosel
+ 440   1        */  
+ 441   1        #if UNAUTO_VCO_SELECT
+ 442   1          rffc2071_reg_t->reg_VCO_AUTO._auto  = VALUE_VCO_AUTO_AUTO;
+ 443   1          ret =   *(U16 *)&(rffc2071_reg_t->reg_VCO_AUTO);            
+ 444   1          RFFC2071_write(RFFC2071_MAP_VCO_AUTO, ret );
+ 445   1          
+ 446   1          rffc2071_reg_t->reg_P1_FREQ1.p1vcosel = VALUE_P1_FREQ1_P1VOSEL;
+ 447   1          ret =   *(U16 *)&(rffc2071_reg_t->reg_P1_FREQ1);            
+ 448   1          RFFC2071_write(RFFC2071_MAP_P1_FREQ1, ret );
+ 449   1          
+ 450   1          rffc2071_reg_t->reg_P2_FREQ1.p2vcosel = VALUE_P2_FREQ1_P2VOSEL;
+ 451   1          ret =   *(U16 *)&(rffc2071_reg_t->reg_P2_FREQ1);            
+ 452   1          RFFC2071_write(RFFC2071_MAP_P2_FREQ1, ret );
+ 453   1        #endif
+ 454   1      
+ 455   1        /*
+ 456   1          CT_CAL1: p1ct, p1ctdef
+ 457   1          CT_CAL2: p2ct, p2ctdef
+ 458   1        */  
+ 459   1        #if AUTO_CT_CAL
+                  rffc2071_reg_t->reg_CT_CAL1.p1ct    = VALUE_CT_CAL1_P1CT;
+                  rffc2071_reg_t->reg_CT_CAL1.p1ctdef = VALUE_CT_CAL1_P1CTDEF;
+                  ret =   *(U16 *)&(rffc2071_reg_t->reg_CT_CAL1);           
+                  RFFC2071_write(RFFC2071_MAP_CT_CAL1, ret );
+                  
+                  rffc2071_reg_t->reg_CT_CAL2.p2ct    = VALUE_CT_CAL2_P2CT;
+                  rffc2071_reg_t->reg_CT_CAL2.p2ctdef = VALUE_CT_CAL2_P2CTDEF;
+                  ret =   *(U16 *)&(rffc2071_reg_t->reg_CT_CAL2);           
+                  RFFC2071_write(RFFC2071_MAP_CT_CAL2, ret );
+                #endif
+ 470   1      
+ 471   1        /*
+ 472   1          P1_FREQ1: p1presc=4
+ 473   1          LF      : pllcpl=3
+ 474   1        */
+ 475   1        //ZGF default 4,3
+ 476   1        if(F_VCO > 320000) //FVCO_3.2G
+ 477   1        {
+ 478   2          rffc2071_reg_t->reg_P1_FREQ1.p1presc  = 2;
+ 479   2          ret =   *(U16 *)&(rffc2071_reg_t->reg_P1_FREQ1);            
+ 480   2          RFFC2071_write(RFFC2071_MAP_P1_FREQ1, ret );
+ 481   2          
+ 482   2          rffc2071_reg_t->reg_LF.pllcpl = 2;
+ 483   2          ret =   *(U16 *)&(rffc2071_reg_t->reg_LF);            
+ 484   2          RFFC2071_write(RFFC2071_MAP_LF, ret );
+ 485   2        }
+ 486   1        /* P1_FREQ1: p1presc=2 */
+ 487   1        else
+ 488   1        {
+C51 COMPILER V9.55   RFFC2071                                                              06/16/2018 10:42:02 PAGE 9   
+
+ 489   2          rffc2071_reg_t->reg_P1_FREQ1.p1presc  = 1;//ZGF defaule :2
+ 490   2          ret =   *(U16 *)&(rffc2071_reg_t->reg_P1_FREQ1);            
+ 491   2          RFFC2071_write(RFFC2071_MAP_P1_FREQ1, ret );
+ 492   2        }
+ 493   1      
+ 494   1        /*
+ 495   1          P1_FREQ1: p1n, p1lodiv
+ 496   1          P1_FREQ2: p1nmsb
+ 497   1          P1_FREQ3: p1nlsb
+ 498   1        */
+ 499   1      //  rffc2071_reg_t->reg_P1_FREQ1.p1n      = VALUE_P1_FREQ1_P1N;
+ 500   1      //  rffc2071_reg_t->reg_P1_FREQ1.p1lodiv  = VALUE_P1_FREQ1_P1LODIV;
+ 501   1        ret =   *(U16 *)&(rffc2071_reg_t->reg_P1_FREQ1);            
+ 502   1        RFFC2071_write(RFFC2071_MAP_P1_FREQ1, ret );
+ 503   1        
+ 504   1      //  rffc2071_reg_t->reg_P1_FREQ2.p1nmsb   = VALUE_P1_FREQ2_P1NMSB;
+ 505   1        ret =   *(U16 *)&(rffc2071_reg_t->reg_P1_FREQ2);            
+ 506   1        RFFC2071_write(RFFC2071_MAP_P1_FREQ2, ret );
+ 507   1        
+ 508   1      //  rffc2071_reg_t->reg_P1_FREQ3.p1nlsb   = VALUE_P1_FREQ3_P1NLSB;
+ 509   1        ret =   *(U16 *)&(rffc2071_reg_t->reg_P1_FREQ3);            
+ 510   1        RFFC2071_write(RFFC2071_MAP_P1_FREQ3, ret );
+ 511   1        
+ 512   1        
+ 513   1        
+ 514   1        
+ 515   1        
+ 516   1        
+ 517   1        
+ 518   1        /*
+ 519   1          P2_FREQ1: p2n, p2lodiv
+ 520   1          P2_FREQ2: p2nmsb
+ 521   1          P2_FREQ3: p2nlsb
+ 522   1        */
+ 523   1      //  rffc2071_reg_t->reg_P2_FREQ1.p2n      = VALUE_P2_FREQ1_P2N;
+ 524   1      //  rffc2071_reg_t->reg_P2_FREQ1.p2presc  = 1;
+ 525   1      //  rffc2071_reg_t->reg_P2_FREQ1.p2lodiv  = VALUE_P2_FREQ1_P2LODIV;
+ 526   1        ret =   *(U16 *)&(rffc2071_reg_t->reg_P2_FREQ1);            
+ 527   1        RFFC2071_write( RFFC2071_MAP_P2_FREQ1, ret );
+ 528   1        
+ 529   1      //  rffc2071_reg_t->reg_P2_FREQ2.p2nmsb   = VALUE_P2_FREQ2_P2NMSB;
+ 530   1        ret =   *(U16 *)&(rffc2071_reg_t->reg_P2_FREQ2);            
+ 531   1        RFFC2071_write(RFFC2071_MAP_P2_FREQ2, ret );
+ 532   1        
+ 533   1      //  rffc2071_reg_t->reg_P2_FREQ3.p2nlsb   = VALUE_P2_FREQ3_P2NLSB;
+ 534   1        ret =   *(U16 *)&(rffc2071_reg_t->reg_P2_FREQ3);            
+ 535   1        RFFC2071_write(RFFC2071_MAP_P2_FREQ3, ret );
+ 536   1      }
+ 537          
+ 538          //4
+ 539          void RFFC2071_set_calibration_mode(S_RFFC2071_REG * rffc2071_reg_t)
+ 540          {
+ 541   1        U16 ret = 0;
+ 542   1        
+ 543   1        /*
+ 544   1          PLL_CAL1: p1kv = 0
+ 545   1          PLL_CAL2: p2kv = 0
+ 546   1        */
+ 547   1        #if ENABLE_LOOP_CAL
+                  rffc2071_reg_t->reg_PLL_CAL1.p1kv   = 1;
+                  rffc2071_reg_t->reg_PLL_CAL2.p2kv   = 1;
+                #else
+C51 COMPILER V9.55   RFFC2071                                                              06/16/2018 10:42:02 PAGE 10  
+
+ 551   1          rffc2071_reg_t->reg_PLL_CAL1.p1kv   = 0;
+ 552   1          rffc2071_reg_t->reg_PLL_CAL2.p2kv   = 0;
+ 553   1        #endif
+ 554   1          ret =   *(U16 *)&(rffc2071_reg_t->reg_PLL_CAL1);            
+ 555   1          RFFC2071_write(RFFC2071_MAP_PLL_CAL1, ret );    
+ 556   1          
+ 557   1          ret =   *(U16 *)&(rffc2071_reg_t->reg_PLL_CAL2);            
+ 558   1          RFFC2071_write(RFFC2071_MAP_PLL_CAL2, ret );
+ 559   1        
+ 560   1      }
+ 561          //5
+ 562          void RFFC2071_enable_device(S_RFFC2071_REG * rffc2071_reg_t)
+ 563          {
+ 564   1        U16 ret = 0;
+ 565   1        
+ 566   1        #if ENABLE_DEVICE     /* programming bus */ //1=ENBL and MODE pins are ignored and become available as GPO5
+             - and GPO6 
+ 567   1          rffc2071_reg_t->reg_SDI_CTRL.sipin    = 1;
+ 568   1          ret =   *(U16 *)&(rffc2071_reg_t->reg_SDI_CTRL);            
+ 569   1          RFFC2071_write(RFFC2071_MAP_SDI_CTRL, ret );
+ 570   1        
+ 571   1          rffc2071_reg_t->reg_SDI_CTRL.enbl     = 1;
+ 572   1        #else
+                  rffc2071_reg_t->reg_SDI_CTRL.sipin    = 0;
+                  rffc2071_reg_t->reg_SDI_CTRL.enbl     = 0;    
+                #endif
+ 576   1          ret =   *(U16 *)&(rffc2071_reg_t->reg_SDI_CTRL);            
+ 577   1          RFFC2071_write(RFFC2071_MAP_SDI_CTRL, ret );
+ 578   1        
+ 579   1      //  rffc2071_reg_t->reg_GPO.lock = 1;
+ 580   1      //  rffc2071_reg_t->reg_GPO.p1gpo = 1<<0;
+ 581   1      //  rffc2071_reg_t->reg_GPO.p1gpo = 1<<1;
+ 582   1      //  ret =   *(U16 *)&(rffc2071_reg_t->reg_GPO);
+ 583   1      //  RFFC2071_write(chip, RFFC2071_MAP_GPO, ret );
+ 584   1      }
+ 585          
+*** WARNING C294 IN LINE 237 OF RFFC\RFFC2071.c: unreachable code
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   2010    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      44
+   IDATA SIZE       =      8       2
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

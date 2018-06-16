@@ -1,0 +1,1 @@
+unsigned long code freq;      //?CO?PARA(0x1A40)  8000(DEC)

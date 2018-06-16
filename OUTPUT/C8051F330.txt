@@ -1,0 +1,24 @@
+GPIO:
+// P0.0  -  GPIO,  Push-Pull, Digital           输出2S周期的方波(锁定时)  输出4S周期的方波（未锁定的时候）
+// P0.4  -  TX0 (UART0), Open-Drain, Digital
+// P0.5  -  RX0 (UART0), Open-Drain, Digital
+
+CPU:	C8051F330
+
+UART: 	N-8-1 115200 
+
+CMD:
+$GTF:#  					获取当前频率
+$STF:0868000000# 			设置当前频率	
+
+ACK： 
+$ERROR1!# 	命令错误
+$ERROR2!#	参数错误，输入的频率值不合法。合法范围：85M~2.7G
+$STF:OK!#	频率设置OK
+
+频率参数：设置频率的最小单位10KHz，$STF:0805800011#命令设置得到的频率是805.8MHz，而不是805.800011MHz
+默认频率：			1862MHz	
+设置范围：			0085000000	~	2700000000 Hz
+
+
+

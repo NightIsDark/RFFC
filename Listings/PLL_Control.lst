@@ -1,0 +1,41 @@
+C51 COMPILER V9.55   PLL_CONTROL                                                           06/09/2018 19:53:35 PAGE 1   
+
+
+C51 COMPILER V9.55, COMPILATION OF MODULE PLL_CONTROL
+OBJECT MODULE PLACED IN .\Objects\PLL_Control.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE USER\PLL_Control.c OPTIMIZE(8,SPEED) BROWSE INCDIR(.\driver;.\F33x;.\RFF
+                    -C) DEBUG OBJECTEXTEND PRINT(.\Listings\PLL_Control.lst) TABS(2) OBJECT(.\Objects\PLL_Control.obj)
+
+line level    source
+
+   1          #include "RFFC2071.h"
+   2          
+   3          U8 set_pll_reg(U32 freq)
+   4          {
+   5   1        U8  div = 0;
+   6   1        U16 int_value   = 0;
+   7   1        U32 frac_value  = 0;  
+   8   1        U32 undiv_freq  = 0;
+   9   1        
+  10   1        div = get_vco_divider(freq);
+*** WARNING C206 IN LINE 10 OF USER\PLL_Control.c: 'get_vco_divider': missing function-prototype
+*** ERROR C267 IN LINE 10 OF USER\PLL_Control.c: 'get_vco_divider': requires ANSI-style prototype
+  11   1        if(div ==0)
+  12   1        {
+  13   2          return 0;
+  14   2        }
+  15   1        else
+  16   1        {
+  17   2          //RFOUT = [INT + (FRAC/MOD)] * [fPFD]/RF divider
+  18   2          undiv_freq  = div * freq;
+  19   2          int_value   = (U16)(undiv_freq/REF_F);
+*** ERROR C202 IN LINE 19 OF USER\PLL_Control.c: 'REF_F': undefined identifier
+  20   2          frac_value  = undiv_freq%REF_F;
+*** ERROR C202 IN LINE 20 OF USER\PLL_Control.c: 'REF_F': undefined identifier
+  21   2          frac_value  = (frac_value/10000+5)/10; //Integer-valued
+  22   2          set_pll(div,int_value,frac_value);  
+  23   2        }
+  24   1        return 1;
+  25   1      }
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  3 ERROR(S)
