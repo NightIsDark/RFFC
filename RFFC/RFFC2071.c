@@ -4,7 +4,7 @@
 
 #define Num_Max 10
 
-#define REF_IN (100)   			//10MHz
+#define REF_IN (1000)   			//10MHz
 #define REF_DIV (1)   				//10MHz
 
 
@@ -348,6 +348,11 @@ void RFFC2071_setup_device(S_RFFC2071_REG * rffc2071_reg_t)
 	rffc2071_reg_t->reg_TEST.rgbyp = 1;
 	ret = 	*(U16 *)&(rffc2071_reg_t->reg_TEST);						
 	RFFC2071_write(RFFC2071_MAP_TEST, ret );
+
+	ret = 	*(U16 *)&(rffc2071_reg_t->reg_PLL_CTRL);						
+	RFFC2071_write(RFFC2071_MAP_PLL_CTRL, ret );	
+	ret = 	*(U16 *)&(rffc2071_reg_t->reg_VCO_CTRL);						
+	RFFC2071_write(RFFC2071_MAP_VCO_CTRL, ret );	
 	
 		/* SDI_CTRL: sipin =1 */
 	#if CONTROL_3_WIRE_BUS

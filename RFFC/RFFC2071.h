@@ -407,13 +407,13 @@ typedef   struct
 #define RFFC2071_VALUE_LF							0xFFFA			//Loop Filter Configuration
 #define RFFC2071_VALUE_XO							0x4064			//Crystal Oscillator Configuration
 #define RFFC2071_VALUE_CAL_TIME				0x9055			//Calibration Timing
-#define RFFC2071_VALUE_VCO_CTRL				0x2D02			//Calibration Control
+#define RFFC2071_VALUE_VCO_CTRL				0x2D06			//Calibration Control
 #define RFFC2071_VALUE_CT_CAL1				0xB0BF			//Path 1 Coarse Tuning Calibration
 #define RFFC2071_VALUE_CT_CAL2				0xB0BF			//Path 2 Coarse Tuning Calibration
 #define RFFC2071_VALUE_PLL_CAL1				0x0028			//Path 1 PLL Calibration
 #define RFFC2071_VALUE_PLL_CAL2				0x0028			//Path 2 PLL Calibration
 #define RFFC2071_VALUE_VCO_AUTO				0xFC06			//Auto VCO select control
-#define RFFC2071_VALUE_PLL_CTRL				0x8220			//PLL Control
+#define RFFC2071_VALUE_PLL_CTRL				0x8230			//PLL Control
 #define RFFC2071_VALUE_PLL_BIAS				0x0202			//PLL Bias Settings
 #define RFFC2071_VALUE_MIX_CONT				0xDA00			//Mixer Control
 #define RFFC2071_VALUE_P1_FREQ1				0x2918			//Path 1 Frequency 1
