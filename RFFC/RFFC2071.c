@@ -4,7 +4,7 @@
 
 #define Num_Max 10
 
-#define REF_IN (1000)   			//10MHz
+#define REF_IN (100)   			//10MHz
 #define REF_DIV (1)   				//10MHz
 
 
