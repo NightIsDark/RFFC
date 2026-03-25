@@ -62,7 +62,7 @@ void ReportMessage(MESSAGE_T type)
 {
 	U32 tmp = 0;
 	unsigned char i;
-	tmp =	frequecy*10000;
+	tmp =	frequecy;
 	switch(type)
 	{
 		case CMD_ERROR:
@@ -120,7 +120,13 @@ void ReportMessage(MESSAGE_T type)
 			SendFrame[2]='R';
 			SendFrame[3]='Q';
 			SendFrame[4]=':';
-			for(i = 14;i>4;i--)
+			
+			for(i = 14;i>10;i--)
+			{				
+				SendFrame[i] = 0;
+			}
+			
+			for(i = 10;i>4;i--)
 			{				
 				SendFrame[i]	=	tmp%10 + 0x30;		
 				tmp	/=	10;
@@ -145,13 +151,13 @@ void DataProcess(void)
 		bReceiveData	=	0;
 		if((ReceiveFrame[1]=='S')&&(ReceiveFrame[2]=='T')&&(ReceiveFrame[3]=='F'))  //set the frequecy
 		{
-			for(i=5;i<14;i++)
+			for(i=5;i<10;i++)
 			{
 				freq	+=	ReceiveFrame[i]-0x30;
 				freq  *=	10;
 			}
-			freq 	+=	(ReceiveFrame[14]-0x30);	
-			freq  =	freq/10000;
+			freq 	+=	(ReceiveFrame[10]-0x30);	
+			//freq  =	freq/10000;
 			if(0 == pll_set(freq))
 			{
 				ReportMessage(PAR_ERROR);

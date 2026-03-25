@@ -1,0 +1,1559 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        03/25/2026  22:03:18  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+D:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\RFFC2071.obj, .\Objects\PLL_ControlInterface.obj, .\Objects\init.obj, .\Objects\ST
+>> ARTUP.obj, .\Objects\F330_FlashPrimitives.obj, .\Objects\F330_FlashUtils.obj, .\Objects\main.obj, .\Objects\para.obj,
+>>  .\Objects\serial.obj TO .\Objects\RFFC.axf PRINT (.\Listings\RFFC.m51) RAMSIZE (256) CODE (?CO?PARA (0X1A40))
+
+
+MEMORY MODEL: SMALL WITH FLOATING POINT ARITHMETIC
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\RFFC2071.obj (RFFC2071)
+  .\Objects\PLL_ControlInterface.obj (PLL_CONTROLINTERFACE)
+  .\Objects\init.obj (INIT)
+  .\Objects\STARTUP.obj (?C_STARTUP)
+  .\Objects\F330_FlashPrimitives.obj (F330_FLASHPRIMITIVES)
+  .\Objects\F330_FlashUtils.obj (F330_FLASHUTILS)
+  .\Objects\main.obj (MAIN)
+  .\Objects\para.obj (PARA)
+  .\Objects\serial.obj (SERIAL)
+  D:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPMUL)
+  D:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPCMP)
+  D:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FCAST)
+  D:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?CASTF)
+  D:\KEIL_V5\C51\LIB\C51FPS.LIB (POW)
+  D:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPGETOPN)
+  D:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?CHKFLOAT)
+  D:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPADD)
+  D:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPNEG)
+  D:\KEIL_V5\C51\LIB\C51FPS.LIB (EXP)
+  D:\KEIL_V5\C51\LIB\C51FPS.LIB (LOG)
+  D:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPDIV)
+  D:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPSERIES)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C_INIT)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C?CLDPTR)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C?CSTPTR)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C?ILDPTR)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C?ILDOPTR)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C?ISTPTR)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C?ISTOPTR)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C?LMUL)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C?ULDIV)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C?LNEG)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C?ULCMP)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C?LSHL)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C?LLDIDATA)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C?LLDCODE)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C?LLDIDATA0)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C?LLDCODE0)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C?LSTIDATA)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C?LSTKIDATA)
+
+
+LINK MAP OF MODULE:  .\Objects\RFFC.axf (RFFC2071)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/25/2026  22:03:18  PAGE 2
+
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0009H     UNIT         ?DT?_FLASH_FILL?F330_FLASHUTILS
+            DATA    0011H     0004H     UNIT         ?DT?MAIN
+            IDATA   0015H     0008H     UNIT         ?ID?RFFC2071
+                    001DH     0003H                  *** GAP ***
+            BIT     0020H.0   0000H.1   UNIT         ?BI?SERIAL
+            BIT     0020H.1   0000H.1   UNIT         _BIT_GROUP_
+                    0020H.2   0000H.6                *** GAP ***
+            DATA    0021H     0029H     UNIT         _DATA_GROUP_
+            IDATA   004AH     0045H     UNIT         _IDATA_GROUP_
+            IDATA   008FH     002CH     UNIT         ?ID?SERIAL
+            IDATA   00BBH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     001AH     UNIT         ?PR?_FLASH_BYTEWRITE?F330_FLASHPRIMITIVES
+            CODE    001DH     0004H     UNIT         ?PR?PLL_GET_LOCKSTATE?PLL_CONTROLINTERFACE
+            CODE    0021H     0002H     UNIT         ?CO?MAIN
+            CODE    0023H     0003H     ABSOLUTE     
+            CODE    0026H     06D5H     UNIT         ?C?LIB_CODE
+            CODE    06FBH     01B3H     UNIT         ?PR?_RFFC2071_N_INIT?RFFC2071
+            CODE    08AEH     0195H     UNIT         ?PR?RFFC2071
+            CODE    0A43H     0173H     UNIT         ?PR?_FLASH_CLEAR?F330_FLASHUTILS
+            CODE    0BB6H     0135H     UNIT         ?PR?LOG?LOG
+            CODE    0CEBH     0125H     UNIT         ?PR?_RFFC2071_REG_INIT?RFFC2071
+            CODE    0E10H     0117H     UNIT         ?PR?_POW?POW
+            CODE    0F27H     00E8H     UNIT         ?PR?_RFFC2071_SETUP_DEVICE?RFFC2071
+            CODE    100FH     00C5H     UNIT         ?PR?_RFFC2071_SET_OPER_FREQ?RFFC2071
+            CODE    10D4H     00C4H     UNIT         ?PR?_REPORTMESSAGE?MAIN
+            CODE    1198H     00B6H     UNIT         ?PR?DATAPROCESS?MAIN
+            CODE    124EH     009AH     UNIT         ?PR?EXP?EXP
+            CODE    12E8H     008CH     UNIT         ?C_C51STARTUP
+            CODE    1374H     0075H     UNIT         ?PR?SERIAL?SERIAL
+            CODE    13E9H     0071H     UNIT         ?PR?_PLL_SET?PLL_CONTROLINTERFACE
+            CODE    145AH     006EH     UNIT         ?PR?MAIN?MAIN
+            CODE    14C8H     0059H     UNIT         ?PR?_RFFC2071_READ?RFFC2071
+            CODE    1521H     004AH     UNIT         ?PR?_FLASH_READ?F330_FLASHUTILS
+            CODE    156BH     0047H     UNIT         ?PR?_FLASH_WRITE?F330_FLASHUTILS
+            CODE    15B2H     0043H     UNIT         ?PR?_FLASH_COPY?F330_FLASHUTILS
+            CODE    15F5H     0042H     UNIT         ?PR?_RFFC2071_WRITE?RFFC2071
+            CODE    1637H     0041H     UNIT         ?PR?_RFFC2071_SET_CALIBRATION?RFFC2071
+            CODE    1678H     0040H     UNIT         ?PR?_RFFC2071_SET_CALIBRATION_MODE?RFFC2071
+            CODE    16B8H     003EH     UNIT         ?PR?MAIN
+            CODE    16F6H     0038H     UNIT         ?PR?_FLASH_FILL?F330_FLASHUTILS
+            CODE    172EH     0036H     UNIT         ?PR?_RFFC2071_ENABLE_DEVICE?RFFC2071
+            CODE    1764H     0034H     UNIT         ?PR?_RFFC2071_RESET_DEVICE?RFFC2071
+            CODE    1798H     0032H     UNIT         ?PR?_RFFC2071_PD_INIT?RFFC2071
+            CODE    17CAH     0024H     UNIT         ?PR?_FLASH_UPDATE?F330_FLASHUTILS
+            CODE    17EEH     001AH     UNIT         ?PR?_FLASH_PAGEERASE?F330_FLASHPRIMITIVES
+            CODE    1808H     001AH     UNIT         ?PR?_DELAY_MS?MAIN
+            CODE    1822H     0013H     UNIT         ?PR?F330_FLASHPRIMITIVES
+            CODE    1835H     0012H     UNIT         ?PR?WAIT_TIME?RFFC2071
+            CODE    1847H     0012H     UNIT         ?PR?INIT_DEVICE?INIT
+            CODE    1859H     0012H     UNIT         ?PR?_FLASH_BYTEREAD?F330_FLASHPRIMITIVES
+            CODE    186BH     000EH     UNIT         ?PR?INITSERIAL?SERIAL
+            CODE    1879H     000DH     UNIT         ?PR?TIMER_INIT?INIT
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/25/2026  22:03:18  PAGE 3
+
+
+            CODE    1886H     000DH     UNIT         ?PR?PORT_IO_INIT?INIT
+            CODE    1893H     0008H     UNIT         ?PR?RFFC2071_LOCK?RFFC2071
+            CODE    189BH     0007H     UNIT         ?PR?PLL_CONTROLINTERFACE
+            CODE    18A2H     0007H     UNIT         ?PR?PCA_INIT?INIT
+            CODE    18A9H     0007H     UNIT         ?C_INITSEG
+            CODE    18B0H     0004H     UNIT         ?PR?UART_INIT?INIT
+            CODE    18B4H     0004H     UNIT         ?PR?OSCILLATOR_INIT?INIT
+            CODE    18B8H     0004H     UNIT         ?PR?INTERRUPTS_INIT?INIT
+                    18BCH     0184H                  *** GAP ***
+            CODE    1A40H     0004H     UNIT         ?CO?PARA
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\RFFC.axf (RFFC2071)
+
+
+SEGMENT                                             BIT_GROUP          DATA_GROUP          IDATA_GROUP
+  +--> CALLED SEGMENT                            START    LENGTH     START    LENGTH     START    LENGTH
+--------------------------------------------------------------------------------------------------------
+?C_C51STARTUP                                    -----    -----      -----    -----      -----    -----
+  +--> ?PR?MAIN?MAIN
+  +--> ?C_INITSEG
+
+?PR?MAIN?MAIN                                    -----    -----      -----    -----      -----    -----
+  +--> ?PR?INIT_DEVICE?INIT
+  +--> ?PR?INITSERIAL?SERIAL
+  +--> ?CO?MAIN
+  +--> ?PR?_FLASH_READ?F330_FLASHUTILS
+  +--> ?PR?_REPORTMESSAGE?MAIN
+  +--> ?PR?DATAPROCESS?MAIN
+  +--> ?PR?_DELAY_MS?MAIN
+  +--> ?PR?PLL_GET_LOCKSTATE?PLL_CONTROLINTE...
+  +--> ?PR?_PLL_SET?PLL_CONTROLINTERFACE
+
+?PR?INIT_DEVICE?INIT                             -----    -----      -----    -----      -----    -----
+  +--> ?PR?PCA_INIT?INIT
+  +--> ?PR?TIMER_INIT?INIT
+  +--> ?PR?UART_INIT?INIT
+  +--> ?PR?PORT_IO_INIT?INIT
+  +--> ?PR?OSCILLATOR_INIT?INIT
+  +--> ?PR?INTERRUPTS_INIT?INIT
+
+?PR?_FLASH_READ?F330_FLASHUTILS                  -----    -----      0021H    0009H      -----    -----
+  +--> ?PR?_FLASH_BYTEREAD?F330_FLASHPRIMITIVES
+
+?PR?_FLASH_BYTEREAD?F330_FLASHPRIMITIVES         0020H.1  0000H.1    -----    -----      -----    -----
+
+?PR?_REPORTMESSAGE?MAIN                          -----    -----      0021H    0005H      -----    -----
+  +--> ?PR?MAIN
+
+?PR?DATAPROCESS?MAIN                             -----    -----      -----    -----      004AH    0005H
+  +--> ?PR?MAIN
+  +--> ?PR?_PLL_SET?PLL_CONTROLINTERFACE
+  +--> ?PR?_REPORTMESSAGE?MAIN
+  +--> ?CO?MAIN
+  +--> ?PR?_FLASH_UPDATE?F330_FLASHUTILS
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/25/2026  22:03:18  PAGE 4
+
+
+?PR?_PLL_SET?PLL_CONTROLINTERFACE                -----    -----      0021H    0004H      004FH    003EH
+  +--> ?PR?PLL_CONTROLINTERFACE
+  +--> ?PR?_RFFC2071_RESET_DEVICE?RFFC2071
+  +--> ?PR?_RFFC2071_REG_INIT?RFFC2071
+  +--> ?PR?_RFFC2071_PD_INIT?RFFC2071
+  +--> ?PR?_RFFC2071_N_INIT?RFFC2071
+  +--> ?PR?_RFFC2071_SETUP_DEVICE?RFFC2071
+  +--> ?PR?_RFFC2071_SET_CALIBRATION?RFFC2071
+  +--> ?PR?_RFFC2071_SET_OPER_FREQ?RFFC2071
+  +--> ?PR?_RFFC2071_SET_CALIBRATION_MODE?RF...
+  +--> ?PR?_RFFC2071_ENABLE_DEVICE?RFFC2071
+
+?PR?_RFFC2071_RESET_DEVICE?RFFC2071              -----    -----      0025H    0003H      -----    -----
+  +--> ?PR?WAIT_TIME?RFFC2071
+  +--> ?PR?RFFC2071
+  +--> ?PR?_RFFC2071_WRITE?RFFC2071
+
+?PR?RFFC2071                                     -----    -----      -----    -----      -----    -----
+  +--> ?PR?WAIT_TIME?RFFC2071
+  +--> ?PR?_RFFC2071_WRITE?RFFC2071
+
+?PR?_RFFC2071_REG_INIT?RFFC2071                  -----    -----      -----    -----      -----    -----
+  +--> ?PR?RFFC2071
+
+?PR?_RFFC2071_PD_INIT?RFFC2071                   -----    -----      0025H    0003H      -----    -----
+  +--> ?PR?RFFC2071
+
+?PR?_RFFC2071_N_INIT?RFFC2071                    -----    -----      0025H    0017H      -----    -----
+  +--> ?PR?RFFC2071
+  +--> ?PR?_POW?POW
+
+?PR?_POW?POW                                     -----    -----      003CH    000AH      -----    -----
+  +--> ?PR?LOG?LOG
+  +--> ?PR?EXP?EXP
+
+?PR?LOG?LOG                                      0020H.1  0000H.1    0046H    0004H      -----    -----
+
+?PR?_RFFC2071_SETUP_DEVICE?RFFC2071              -----    -----      0025H    0003H      -----    -----
+  +--> ?PR?RFFC2071
+  +--> ?PR?_RFFC2071_WRITE?RFFC2071
+
+?PR?_RFFC2071_SET_CALIBRATION?RFFC2071           -----    -----      0025H    0003H      008DH    0002H
+  +--> ?PR?RFFC2071
+  +--> ?PR?_RFFC2071_WRITE?RFFC2071
+
+?PR?_RFFC2071_SET_OPER_FREQ?RFFC2071             -----    -----      0025H    0003H      -----    -----
+  +--> ?PR?RFFC2071
+  +--> ?PR?_RFFC2071_WRITE?RFFC2071
+
+?PR?_RFFC2071_SET_CALIBRATION_MODE?RF...         -----    -----      0025H    0003H      -----    -----
+  +--> ?PR?RFFC2071
+  +--> ?PR?_RFFC2071_WRITE?RFFC2071
+
+?PR?_RFFC2071_ENABLE_DEVICE?RFFC2071             -----    -----      0025H    0003H      -----    -----
+  +--> ?PR?RFFC2071
+  +--> ?PR?_RFFC2071_WRITE?RFFC2071
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/25/2026  22:03:18  PAGE 5
+
+
+?PR?_FLASH_UPDATE?F330_FLASHUTILS                -----    -----      0021H    0007H      -----    -----
+  +--> ?PR?_FLASH_CLEAR?F330_FLASHUTILS
+  +--> ?PR?_FLASH_WRITE?F330_FLASHUTILS
+
+?PR?_FLASH_CLEAR?F330_FLASHUTILS                 -----    -----      0028H    0012H      -----    -----
+  +--> ?PR?_FLASH_PAGEERASE?F330_FLASHPRIMIT...
+  +--> ?PR?_FLASH_COPY?F330_FLASHUTILS
+
+?PR?_FLASH_PAGEERASE?F330_FLASHPRIMIT...         0020H.1  0000H.1    -----    -----      -----    -----
+  +--> ?PR?F330_FLASHPRIMITIVES
+
+?PR?_FLASH_COPY?F330_FLASHUTILS                  -----    -----      003AH    0008H      -----    -----
+  +--> ?PR?_FLASH_BYTEREAD?F330_FLASHPRIMITIVES
+  +--> ?PR?_FLASH_BYTEWRITE?F330_FLASHPRIMIT...
+
+?PR?_FLASH_BYTEWRITE?F330_FLASHPRIMIT...         0020H.1  0000H.1    -----    -----      -----    -----
+  +--> ?PR?F330_FLASHPRIMITIVES
+
+?PR?_FLASH_WRITE?F330_FLASHUTILS                 -----    -----      0028H    0009H      -----    -----
+  +--> ?PR?_FLASH_BYTEWRITE?F330_FLASHPRIMIT...
+
+?PR?PLL_GET_LOCKSTATE?PLL_CONTROLINTE...         -----    -----      -----    -----      -----    -----
+  +--> ?PR?RFFC2071_LOCK?RFFC2071
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\RFFC.axf (RFFC2071)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        RFFC2071
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  C:1637H         PUBLIC        _RFFC2071_set_calibration
+  C:172EH         PUBLIC        _RFFC2071_enable_device
+  I:0015H         PUBLIC        F_VCO
+  C:1678H         PUBLIC        _RFFC2071_set_calibration_mode
+  B:0090H.6       PUBLIC        ENBL
+  B:0090H.2       PUBLIC        D_RESET
+  B:0090H.1       PUBLIC        LOCK
+  C:06FBH         PUBLIC        _RFFC2071_N_INIT
+  I:0019H         PUBLIC        F_PD
+  C:0CEBH         PUBLIC        _RFFC2071_REG_INIT
+  C:100FH         PUBLIC        _RFFC2071_set_oper_freq
+  C:183BH         SYMBOL        wait_time
+  C:1764H         PUBLIC        _RFFC2071_reset_device
+  C:0F27H         PUBLIC        _RFFC2071_setup_device
+  C:14C8H         PUBLIC        _RFFC2071_read
+  C:1798H         PUBLIC        _RFFC2071_PD_INIT
+  C:1893H         PUBLIC        RFFC2071_lock
+  C:15F5H         PUBLIC        _RFFC2071_write
+  C:08AEH         SYMBOL        Com0037
+  C:08AEH         SYMBOL        L?0056
+  C:08AEH         SYMBOL        L?0057
+  C:08B6H         SYMBOL        L?0058
+  C:08B9H         SYMBOL        L?0059
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/25/2026  22:03:18  PAGE 6
+
+
+  C:08BFH         SYMBOL        L?0060
+  C:08C2H         SYMBOL        L?0061
+  C:08CBH         SYMBOL        L?0062
+  C:08D3H         SYMBOL        L?0063
+  C:08D9H         SYMBOL        L?0064
+  C:08E0H         SYMBOL        L?0065
+  C:08EEH         SYMBOL        L?0066
+  C:08F4H         SYMBOL        L?0067
+  C:08FBH         SYMBOL        L?0068
+  C:0904H         SYMBOL        L?0069
+  C:0908H         SYMBOL        L?0070
+  C:0910H         SYMBOL        L?0071
+  C:0918H         SYMBOL        L?0072
+  C:091EH         SYMBOL        L?0073
+  C:0926H         SYMBOL        L?0074
+  C:092AH         SYMBOL        L?0075
+  C:092FH         SYMBOL        L?0076
+  C:0936H         SYMBOL        L?0077
+  C:0945H         SYMBOL        L?0078
+  C:0948H         SYMBOL        L?0079
+  C:0951H         SYMBOL        L?0080
+  C:0953H         SYMBOL        L?0081
+  C:0956H         SYMBOL        L?0082
+  C:095DH         SYMBOL        L?0083
+  C:0964H         SYMBOL        L?0084
+  C:0966H         SYMBOL        L?0085
+  C:096DH         SYMBOL        L?0086
+  C:096DH         SYMBOL        L?0087
+  C:096FH         SYMBOL        L?0088
+  C:0977H         SYMBOL        L?0089
+  C:0977H         SYMBOL        L?0090
+  C:097FH         SYMBOL        L?0092
+  C:097FH         SYMBOL        L?0093
+  C:0981H         SYMBOL        L?0094
+  C:0989H         SYMBOL        L?0095
+  C:099FH         SYMBOL        L?0096
+  C:09A5H         SYMBOL        L?0097
+  C:09ACH         SYMBOL        L?0098
+  C:09BFH         SYMBOL        L?0099
+  C:09D1H         SYMBOL        L?0100
+  C:09E2H         SYMBOL        L?0101
+  C:09F4H         SYMBOL        L?0102
+  C:09F4H         SYMBOL        L?0103
+  C:09FAH         SYMBOL        L?0104
+  C:09FAH         SYMBOL        L?0105
+  C:0A00H         SYMBOL        L?0106
+  C:0A00H         SYMBOL        L?0107
+  C:0A07H         SYMBOL        L?0108
+  C:0A15H         SYMBOL        L?0109
+  C:0A24H         SYMBOL        L?0110
+  C:0A2FH         SYMBOL        L?0112
+  C:0A39H         SYMBOL        L?0113
+  -------         PROC          COM0037
+  -------         ENDPROC       COM0037
+  -------         PROC          RFFC2071_LOCK
+  C:1893H         LINE#         32
+  C:1893H         LINE#         33
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/25/2026  22:03:18  PAGE 7
+
+
+  C:1893H         LINE#         34
+  C:189AH         LINE#         35
+  -------         ENDPROC       RFFC2071_LOCK
+  -------         PROC          L?0111
+  -------         ENDPROC       L?0111
+  -------         PROC          WAIT_TIME
+  -------         DO            
+  D:0007H         SYMBOL        i
+  -------         ENDDO         
+  C:183BH         LINE#         36
+  C:183BH         LINE#         37
+  C:183BH         LINE#         39
+  C:1846H         LINE#         40
+  -------         ENDPROC       WAIT_TIME
+  -------         PROC          _RFFC2071_WRITE
+  D:0006H         SYMBOL        add
+  D:0004H         SYMBOL        ret
+  -------         DO            
+  D:0003H         SYMBOL        i
+  -------         ENDDO         
+  C:15F5H         LINE#         51
+  C:15F5H         LINE#         52
+  C:15F5H         LINE#         55
+  C:15F5H         LINE#         56
+  C:15F5H         LINE#         57
+  C:15F5H         LINE#         64
+  C:15F5H         LINE#         66
+  C:15F5H         LINE#         67
+  C:15F5H         LINE#         68
+  C:15F5H         LINE#         69
+  C:15F8H         LINE#         71
+  C:15FBH         LINE#         73
+  C:15FDH         LINE#         74
+  C:15FDH         LINE#         75
+  C:1601H         LINE#         76
+  C:1606H         LINE#         78
+  C:1609H         LINE#         80
+  C:160DH         LINE#         81
+  C:160DH         LINE#         82
+  C:160DH         LINE#         83
+  C:160DH         LINE#         84
+  C:1610H         LINE#         85
+  C:1614H         LINE#         88
+  C:1616H         LINE#         89
+  C:1616H         LINE#         90
+  C:161AH         LINE#         91
+  C:161FH         LINE#         93
+  C:1622H         LINE#         95
+  C:1629H         LINE#         96
+  C:1629H         LINE#         97
+  C:1629H         LINE#         98
+  C:1629H         LINE#         99
+  C:162CH         LINE#         100
+  C:1630H         LINE#         101
+  C:1633H         LINE#         107
+  C:1633H         LINE#         108
+  C:1633H         LINE#         109
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/25/2026  22:03:18  PAGE 8
+
+
+  C:1633H         LINE#         110
+  C:1636H         LINE#         111
+  -------         ENDPROC       _RFFC2071_WRITE
+  -------         PROC          _RFFC2071_READ
+  D:0006H         SYMBOL        add
+  -------         DO            
+  D:0003H         SYMBOL        i
+  D:0004H         SYMBOL        ret
+  -------         ENDDO         
+  C:14C8H         LINE#         124
+  C:14C8H         LINE#         125
+  C:14C8H         LINE#         129
+  C:14C8H         LINE#         130
+  C:14C8H         LINE#         131
+  C:14C8H         LINE#         132
+  C:14C8H         LINE#         138
+  C:14C8H         LINE#         139
+  C:14C8H         LINE#         140
+  C:14C8H         LINE#         141
+  C:14CBH         LINE#         143
+  C:14CEH         LINE#         145
+  C:14D0H         LINE#         146
+  C:14D0H         LINE#         147
+  C:14D4H         LINE#         148
+  C:14D9H         LINE#         150
+  C:14DCH         LINE#         152
+  C:14E0H         LINE#         153
+  C:14E0H         LINE#         154
+  C:14E0H         LINE#         155
+  C:14E0H         LINE#         156
+  C:14E3H         LINE#         157
+  C:14E7H         LINE#         159
+  C:14E7H         LINE#         160
+  C:14E7H         LINE#         161
+  C:14E7H         LINE#         162
+  C:14EAH         LINE#         163
+  C:14EAH         LINE#         164
+  C:14EAH         LINE#         165
+  C:14EDH         LINE#         170
+  C:14EFH         LINE#         171
+  C:14EFH         LINE#         172
+  C:14F6H         LINE#         173
+  C:14F9H         LINE#         174
+  C:1507H         LINE#         175
+  C:150CH         LINE#         177
+  C:150FH         LINE#         179
+  C:150FH         LINE#         180
+  C:150FH         LINE#         181
+  C:1512H         LINE#         182
+  C:1516H         LINE#         186
+  C:1519H         LINE#         192
+  C:1519H         LINE#         193
+  C:151CH         LINE#         195
+  C:1520H         LINE#         196
+  -------         ENDPROC       _RFFC2071_READ
+  -------         PROC          _RFFC2071_REG_INIT
+  D:0001H         SYMBOL        rffc2071_reg_t
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/25/2026  22:03:18  PAGE 9
+
+
+  C:0CEBH         LINE#         198
+  C:0CEBH         LINE#         199
+  C:0CEBH         LINE#         200
+  C:0CF3H         LINE#         201
+  C:0CFEH         LINE#         202
+  C:0D09H         LINE#         203
+  C:0D14H         LINE#         204
+  C:0D1FH         LINE#         205
+  C:0D2AH         LINE#         206
+  C:0D34H         LINE#         207
+  C:0D3EH         LINE#         208
+  C:0D49H         LINE#         209
+  C:0D54H         LINE#         210
+  C:0D5EH         LINE#         211
+  C:0D66H         LINE#         212
+  C:0D71H         LINE#         213
+  C:0D7CH         LINE#         214
+  C:0D84H         LINE#         215
+  C:0D8FH         LINE#         216
+  C:0D9AH         LINE#         217
+  C:0DA2H         LINE#         218
+  C:0DADH         LINE#         219
+  C:0DB3H         LINE#         220
+  C:0DB9H         LINE#         221
+  C:0DBFH         LINE#         222
+  C:0DC5H         LINE#         223
+  C:0DCDH         LINE#         224
+  C:0DD8H         LINE#         225
+  C:0DE3H         LINE#         226
+  C:0DE9H         LINE#         227
+  C:0DF3H         LINE#         228
+  C:0DFEH         LINE#         229
+  C:0E06H         LINE#         230
+  -------         ENDPROC       _RFFC2071_REG_INIT
+  -------         PROC          _RFFC2071_PD_INIT
+  D:0025H         SYMBOL        rffc2071_reg_t
+  C:1798H         LINE#         233
+  C:179EH         LINE#         234
+  C:179EH         LINE#         235
+  C:179EH         LINE#         236
+  C:179EH         LINE#         237
+  C:179EH         LINE#         238
+  C:179EH         LINE#         239
+  C:179EH         LINE#         240
+  C:179EH         LINE#         241
+  C:17B3H         LINE#         242
+  C:17BBH         LINE#         243
+  C:17BBH         LINE#         245
+  C:17C4H         LINE#         246
+  C:17C9H         LINE#         247
+  -------         ENDPROC       _RFFC2071_PD_INIT
+  C:0896H         SYMBOL        L?0091
+  -------         PROC          _RFFC2071_N_INIT
+  D:0025H         SYMBOL        Fre
+  D:0029H         SYMBOL        rffc2071_reg_t
+  -------         DO            
+  D:002CH         SYMBOL        N
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/25/2026  22:03:18  PAGE 10
+
+
+  D:002EH         SYMBOL        N_msb
+  D:0030H         SYMBOL        N_lsb
+  D:0032H         SYMBOL        buffer
+  D:0036H         SYMBOL        fbkdiv
+  D:003AH         SYMBOL        i
+  D:003BH         SYMBOL        n_lo
+  -------         ENDDO         
+  C:06FBH         LINE#         249
+  C:0709H         LINE#         250
+  C:0709H         LINE#         255
+  C:071EH         LINE#         257
+  C:0721H         LINE#         258
+  C:0721H         LINE#         259
+  C:0749H         LINE#         260
+  C:0749H         LINE#         261
+  C:074EH         LINE#         262
+  C:0750H         LINE#         263
+  C:0750H         LINE#         264
+  C:0759H         LINE#         265
+  C:0765H         LINE#         266
+  C:076EH         LINE#         268
+  C:079AH         LINE#         269
+  C:07A0H         LINE#         270
+  C:07A0H         LINE#         271
+  C:07A3H         LINE#         272
+  C:07ADH         LINE#         273
+  C:07B4H         LINE#         274
+  C:07B6H         LINE#         276
+  C:07B6H         LINE#         277
+  C:07B9H         LINE#         278
+  C:07C3H         LINE#         279
+  C:07CDH         LINE#         280
+  C:07CDH         LINE#         282
+  C:07E5H         LINE#         283
+  C:0806H         LINE#         284
+  C:0812H         LINE#         285
+  C:083BH         LINE#         286
+  C:0847H         LINE#         288
+  C:085EH         LINE#         289
+  C:0861H         LINE#         290
+  C:086EH         LINE#         292
+  C:0882H         LINE#         293
+  C:0885H         LINE#         294
+  C:0896H         LINE#         296
+  -------         ENDPROC       _RFFC2071_N_INIT
+  -------         PROC          _RFFC2071_RESET_DEVICE
+  D:0025H         SYMBOL        rffc2071_reg_t
+  -------         DO            
+  D:0004H         SYMBOL        ret
+  -------         ENDDO         
+  C:1764H         LINE#         297
+  C:176AH         LINE#         298
+  C:176AH         LINE#         299
+  C:176DH         LINE#         302
+  C:176FH         LINE#         303
+  C:1771H         LINE#         304
+  C:1774H         LINE#         306
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/25/2026  22:03:18  PAGE 11
+
+
+  C:177AH         LINE#         307
+  C:1786H         LINE#         308
+  C:178BH         LINE#         310
+  -------         ENDPROC       _RFFC2071_RESET_DEVICE
+  -------         PROC          _RFFC2071_SETUP_DEVICE
+  D:0025H         SYMBOL        rffc2071_reg_t
+  -------         DO            
+  D:0004H         SYMBOL        ret
+  -------         ENDDO         
+  C:0F27H         LINE#         314
+  C:0F2DH         LINE#         315
+  C:0F2DH         LINE#         316
+  C:0F2DH         LINE#         319
+  C:0F38H         LINE#         320
+  C:0F3EH         LINE#         321
+  C:0F40H         LINE#         326
+  C:0F54H         LINE#         327
+  C:0F57H         LINE#         328
+  C:0F60H         LINE#         329
+  C:0F62H         LINE#         335
+  C:0F6AH         LINE#         336
+  C:0F73H         LINE#         337
+  C:0F75H         LINE#         343
+  C:0F7DH         LINE#         344
+  C:0F86H         LINE#         345
+  C:0F88H         LINE#         348
+  C:0F9AH         LINE#         349
+  C:0FA3H         LINE#         350
+  C:0FA8H         LINE#         352
+  C:0FB1H         LINE#         353
+  C:0FB6H         LINE#         354
+  C:0FBFH         LINE#         355
+  C:0FC1H         LINE#         359
+  C:0FC6H         LINE#         360
+  C:0FC9H         LINE#         361
+  C:0FCBH         LINE#         368
+  C:0FD0H         LINE#         370
+  C:0FD3H         LINE#         371
+  C:0FD5H         LINE#         376
+  C:0FDFH         LINE#         380
+  C:0FE8H         LINE#         381
+  C:0FEAH         LINE#         385
+  C:0FFCH         LINE#         386
+  C:1001H         LINE#         387
+  C:100AH         LINE#         388
+  -------         ENDPROC       _RFFC2071_SETUP_DEVICE
+  -------         PROC          _RFFC2071_SET_CALIBRATION
+  D:0025H         SYMBOL        rffc2071_reg_t
+  -------         DO            
+  I:008DH         SYMBOL        ret
+  -------         ENDDO         
+  C:1637H         LINE#         391
+  C:163DH         LINE#         392
+  C:163DH         LINE#         393
+  C:1643H         LINE#         404
+  C:164EH         LINE#         408
+  C:1654H         LINE#         409
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/25/2026  22:03:18  PAGE 12
+
+
+  C:1659H         LINE#         415
+  C:166DH         LINE#         417
+  C:1673H         LINE#         418
+  -------         ENDPROC       _RFFC2071_SET_CALIBRATION
+  -------         PROC          _RFFC2071_SET_OPER_FREQ
+  D:0025H         SYMBOL        rffc2071_reg_t
+  -------         DO            
+  D:0082H         SYMBOL        ret
+  -------         ENDDO         
+  C:100FH         LINE#         437
+  C:1015H         LINE#         438
+  C:1015H         LINE#         439
+  C:1015H         LINE#         447
+  C:1025H         LINE#         448
+  C:1028H         LINE#         449
+  C:1030H         LINE#         451
+  C:1039H         LINE#         452
+  C:1039H         LINE#         453
+  C:1041H         LINE#         455
+  C:104FH         LINE#         456
+  C:1055H         LINE#         457
+  C:105DH         LINE#         481
+  C:1066H         LINE#         482
+  C:1066H         LINE#         483
+  C:106DH         LINE#         484
+  C:106DH         LINE#         485
+  C:1070H         LINE#         487
+  C:107BH         LINE#         488
+  C:1081H         LINE#         489
+  C:1086H         LINE#         490
+  C:1088H         LINE#         493
+  C:1088H         LINE#         494
+  C:108FH         LINE#         495
+  C:108FH         LINE#         496
+  C:1097H         LINE#         497
+  C:1097H         LINE#         506
+  C:1097H         LINE#         507
+  C:109AH         LINE#         510
+  C:10A0H         LINE#         511
+  C:10A5H         LINE#         514
+  C:10ABH         LINE#         515
+  C:10B0H         LINE#         531
+  C:10B6H         LINE#         532
+  C:10BBH         LINE#         535
+  C:10C1H         LINE#         536
+  C:10C6H         LINE#         539
+  C:10CCH         LINE#         540
+  -------         ENDPROC       _RFFC2071_SET_OPER_FREQ
+  -------         PROC          _RFFC2071_SET_CALIBRATION_MODE
+  D:0025H         SYMBOL        rffc2071_reg_t
+  -------         DO            
+  D:0004H         SYMBOL        ret
+  -------         ENDDO         
+  C:1678H         LINE#         544
+  C:167EH         LINE#         545
+  C:167EH         LINE#         546
+  C:167EH         LINE#         556
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/25/2026  22:03:18  PAGE 13
+
+
+  C:1687H         LINE#         557
+  C:1695H         LINE#         559
+  C:16A2H         LINE#         560
+  C:16A7H         LINE#         562
+  C:16B3H         LINE#         563
+  -------         ENDPROC       _RFFC2071_SET_CALIBRATION_MODE
+  -------         PROC          _RFFC2071_ENABLE_DEVICE
+  D:0025H         SYMBOL        rffc2071_reg_t
+  -------         DO            
+  D:0004H         SYMBOL        ret
+  -------         ENDDO         
+  C:172EH         LINE#         567
+  C:1734H         LINE#         568
+  C:1734H         LINE#         569
+  C:1734H         LINE#         572
+  C:173FH         LINE#         573
+  C:1745H         LINE#         574
+  C:174AH         LINE#         576
+  C:1759H         LINE#         581
+  C:175FH         LINE#         582
+  -------         ENDPROC       _RFFC2071_ENABLE_DEVICE
+  -------         ENDMOD        RFFC2071
+
+  -------         MODULE        PLL_CONTROLINTERFACE
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:001DH         PUBLIC        pll_get_lockstate
+  C:13E9H         PUBLIC        _pll_set
+  C:189BH         SYMBOL        Com0006
+  C:189BH         SYMBOL        L?0007
+  C:189BH         SYMBOL        L?0008
+  -------         PROC          COM0006
+  -------         ENDPROC       COM0006
+  -------         PROC          _PLL_SET
+  D:0021H         SYMBOL        fre
+  -------         DO            
+  I:004FH         SYMBOL        str
+  -------         ENDDO         
+  C:13E9H         LINE#         199
+  C:13F1H         LINE#         200
+  C:13F1H         LINE#         203
+  C:1416H         LINE#         204
+  C:1416H         LINE#         205
+  C:1419H         LINE#         206
+  C:1419H         LINE#         208
+  C:1419H         LINE#         210
+  C:141FH         LINE#         212
+  C:1425H         LINE#         214
+  C:142BH         LINE#         216
+  C:1439H         LINE#         218
+  C:143FH         LINE#         219
+  C:1445H         LINE#         220
+  C:144BH         LINE#         221
+  C:1451H         LINE#         222
+  C:1457H         LINE#         223
+  C:1459H         LINE#         224
+  C:1459H         LINE#         225
+  -------         ENDPROC       _PLL_SET
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/25/2026  22:03:18  PAGE 14
+
+
+  -------         PROC          PLL_GET_LOCKSTATE
+  C:001DH         LINE#         226
+  C:001DH         LINE#         227
+  C:001DH         LINE#         228
+  C:0020H         LINE#         229
+  -------         ENDPROC       PLL_GET_LOCKSTATE
+  -------         ENDMOD        PLL_CONTROLINTERFACE
+
+  -------         MODULE        INIT
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:00A4H         PUBLIC        P0MDOUT
+  D:00A5H         PUBLIC        P1MDOUT
+  D:00A8H         PUBLIC        IE
+  C:1886H         PUBLIC        Port_IO_Init
+  D:00D9H         PUBLIC        PCA0MD
+  C:18B4H         PUBLIC        Oscillator_Init
+  D:00E1H         PUBLIC        XBR0
+  D:00E2H         PUBLIC        XBR1
+  C:18B0H         PUBLIC        UART_Init
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  C:18B8H         PUBLIC        Interrupts_Init
+  D:00B2H         PUBLIC        OSCICN
+  C:1847H         PUBLIC        Init_Device
+  C:18A2H         PUBLIC        PCA_Init
+  D:008DH         PUBLIC        TH1
+  D:0098H         PUBLIC        SCON0
+  D:008EH         PUBLIC        CKCON
+  C:1879H         PUBLIC        Timer_Init
+  -------         PROC          PCA_INIT
+  C:18A2H         LINE#         8
+  C:18A2H         LINE#         9
+  C:18A2H         LINE#         10
+  C:18A5H         LINE#         11
+  C:18A8H         LINE#         12
+  -------         ENDPROC       PCA_INIT
+  -------         PROC          TIMER_INIT
+  C:1879H         LINE#         15
+  C:1879H         LINE#         16
+  C:1879H         LINE#         17
+  C:187CH         LINE#         18
+  C:187FH         LINE#         19
+  C:1882H         LINE#         20
+  C:1885H         LINE#         21
+  -------         ENDPROC       TIMER_INIT
+  -------         PROC          UART_INIT
+  C:18B0H         LINE#         23
+  C:18B0H         LINE#         24
+  C:18B0H         LINE#         25
+  C:18B3H         LINE#         26
+  -------         ENDPROC       UART_INIT
+  -------         PROC          PORT_IO_INIT
+  C:1886H         LINE#         28
+  C:1886H         LINE#         29
+  C:1886H         LINE#         48
+  C:1889H         LINE#         49
+  C:188CH         LINE#         50
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/25/2026  22:03:18  PAGE 15
+
+
+  C:188FH         LINE#         51
+  C:1892H         LINE#         52
+  -------         ENDPROC       PORT_IO_INIT
+  -------         PROC          OSCILLATOR_INIT
+  C:18B4H         LINE#         54
+  C:18B4H         LINE#         55
+  C:18B4H         LINE#         56
+  C:18B7H         LINE#         57
+  -------         ENDPROC       OSCILLATOR_INIT
+  -------         PROC          INTERRUPTS_INIT
+  C:18B8H         LINE#         59
+  C:18B8H         LINE#         60
+  C:18B8H         LINE#         61
+  C:18BBH         LINE#         62
+  -------         ENDPROC       INTERRUPTS_INIT
+  -------         PROC          INIT_DEVICE
+  C:1847H         LINE#         66
+  C:1847H         LINE#         67
+  C:1847H         LINE#         68
+  C:184AH         LINE#         69
+  C:184DH         LINE#         70
+  C:1850H         LINE#         71
+  C:1853H         LINE#         72
+  C:1856H         LINE#         73
+  -------         ENDPROC       INIT_DEVICE
+  -------         ENDMOD        INIT
+
+  -------         MODULE        ?C_STARTUP
+  C:12E8H         SEGMENT       ?C_C51STARTUP
+  I:00BBH         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:12EBH         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:12E8H         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:12E8H         LINE#         133
+  C:12EAH         LINE#         134
+  C:12EBH         LINE#         135
+  C:12ECH         LINE#         136
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/25/2026  22:03:18  PAGE 16
+
+
+  C:12EEH         LINE#         185
+  C:12F1H         LINE#         196
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        F330_FLASHPRIMITIVES
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  B:00A8H.7       PUBLIC        EA
+  D:008FH         PUBLIC        PSCTL
+  D:00FFH         PUBLIC        VDM0CN
+  C:17EEH         PUBLIC        _FLASH_PageErase
+  D:00EFH         PUBLIC        RSTSRC
+  C:1859H         PUBLIC        _FLASH_ByteRead
+  C:0003H         PUBLIC        _FLASH_ByteWrite
+  D:00B7H         PUBLIC        FLKEY
+  C:1822H         SYMBOL        Com0004
+  C:1822H         SYMBOL        L?0005
+  -------         PROC          COM0004
+  -------         ENDPROC       COM0004
+  -------         PROC          _FLASH_BYTEWRITE
+  D:0006H         SYMBOL        addr
+  D:0005H         SYMBOL        byte
+  -------         DO            
+  B:0020H.1       SYMBOL        EA_SAVE
+  D:0082H         SYMBOL        pwrite
+  -------         ENDDO         
+  C:0003H         LINE#         59
+  C:0003H         LINE#         60
+  C:0003H         LINE#         61
+  C:0007H         LINE#         64
+  C:0007H         LINE#         68
+  C:0007H         LINE#         71
+  C:0007H         LINE#         73
+  C:0007H         LINE#         75
+  C:0007H         LINE#         76
+  C:000AH         LINE#         77
+  C:000DH         LINE#         80
+  C:0010H         LINE#         83
+  C:0013H         LINE#         85
+  C:0015H         LINE#         87
+  C:0018H         LINE#         89
+  C:001CH         LINE#         90
+  -------         ENDPROC       _FLASH_BYTEWRITE
+  -------         PROC          _FLASH_BYTEREAD
+  D:0006H         SYMBOL        addr
+  -------         DO            
+  B:0020H.1       SYMBOL        EA_SAVE
+  D:0082H         SYMBOL        pread
+  D:0007H         SYMBOL        byte
+  -------         ENDDO         
+  C:1859H         LINE#         98
+  C:1859H         LINE#         99
+  C:1859H         LINE#         100
+  C:185DH         LINE#         104
+  C:185FH         LINE#         106
+  C:1863H         LINE#         108
+  C:1866H         LINE#         110
+  C:186AH         LINE#         112
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/25/2026  22:03:18  PAGE 17
+
+
+  C:186AH         LINE#         113
+  -------         ENDPROC       _FLASH_BYTEREAD
+  -------         PROC          _FLASH_PAGEERASE
+  D:0006H         SYMBOL        addr
+  -------         DO            
+  B:0020H.1       SYMBOL        EA_SAVE
+  D:0082H         SYMBOL        pwrite
+  -------         ENDDO         
+  C:17EEH         LINE#         122
+  C:17EEH         LINE#         123
+  C:17EEH         LINE#         124
+  C:17F2H         LINE#         127
+  C:17F2H         LINE#         130
+  C:17F2H         LINE#         133
+  C:17F2H         LINE#         135
+  C:17F2H         LINE#         137
+  C:17F2H         LINE#         138
+  C:17F5H         LINE#         139
+  C:17F8H         LINE#         142
+  C:17FBH         LINE#         145
+  C:17FEH         LINE#         146
+  C:1800H         LINE#         148
+  C:1803H         LINE#         150
+  C:1807H         LINE#         151
+  -------         ENDPROC       _FLASH_PAGEERASE
+  -------         ENDMOD        F330_FLASHPRIMITIVES
+
+  -------         MODULE        F330_FLASHUTILS
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:17CAH         PUBLIC        _FLASH_Update
+  C:0A43H         PUBLIC        _FLASH_Clear
+  C:1521H         PUBLIC        _FLASH_Read
+  C:16F6H         PUBLIC        _FLASH_Fill
+  C:156BH         PUBLIC        _FLASH_Write
+  C:15B2H         PUBLIC        _FLASH_Copy
+  C:0B4EH         SYMBOL        L?0029
+  C:0B7BH         SYMBOL        L?0030
+  C:0B97H         SYMBOL        L?0031
+  C:0BA8H         SYMBOL        L?0032
+  -------         PROC          _FLASH_CLEAR
+  D:0028H         SYMBOL        dest
+  D:002AH         SYMBOL        numbytes
+  -------         DO            
+  D:002CH         SYMBOL        dest_1_page_start
+  D:002EH         SYMBOL        dest_1_page_end
+  D:0030H         SYMBOL        dest_2_page_start
+  D:0006H         SYMBOL        dest_2_page_end
+  D:0006H         SYMBOL        numbytes_remainder
+  D:0032H         SYMBOL        FLASH_pagesize
+  D:0034H         SYMBOL        wptr
+  D:0036H         SYMBOL        rptr
+  D:0038H         SYMBOL        length
+  -------         ENDDO         
+  C:0A43H         LINE#         66
+  C:0A4BH         LINE#         67
+  C:0A4BH         LINE#         85
+  C:0A51H         LINE#         87
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/25/2026  22:03:18  PAGE 18
+
+
+  C:0A6AH         LINE#         88
+  C:0A7BH         LINE#         89
+  C:0A8BH         LINE#         90
+  C:0A99H         LINE#         92
+  C:0AA3H         LINE#         95
+  C:0AA4H         LINE#         99
+  C:0AA4H         LINE#         100
+  C:0AA4H         LINE#         101
+  C:0AA4H         LINE#         102
+  C:0AA7H         LINE#         106
+  C:0AC3H         LINE#         107
+  C:0ACFH         LINE#         108
+  C:0AE9H         LINE#         109
+  C:0AECH         LINE#         112
+  C:0AECH         LINE#         115
+  C:0AEFH         LINE#         116
+  C:0AEFH         LINE#         117
+  C:0AEFH         LINE#         118
+  C:0AEFH         LINE#         120
+  C:0AF2H         LINE#         122
+  C:0AF4H         LINE#         126
+  C:0AF4H         LINE#         127
+  C:0AF4H         LINE#         128
+  C:0AF4H         LINE#         129
+  C:0AF7H         LINE#         132
+  C:0AF7H         LINE#         135
+  C:0AFAH         LINE#         136
+  C:0AFAH         LINE#         137
+  C:0AFAH         LINE#         138
+  C:0AFDH         LINE#         143
+  C:0B04H         LINE#         147
+  C:0B1EH         LINE#         148
+  C:0B27H         LINE#         149
+  C:0B31H         LINE#         150
+  C:0B3AH         LINE#         151
+  C:0B3DH         LINE#         154
+  C:0B44H         LINE#         157
+  C:0B4AH         LINE#         158
+  C:0B4AH         LINE#         159
+  C:0B4AH         LINE#         160
+  C:0B4DH         LINE#         161
+  C:0B4DH         LINE#         162
+  -------         ENDPROC       _FLASH_CLEAR
+  -------         PROC          _FLASH_UPDATE
+  D:0021H         SYMBOL        dest
+  D:0023H         SYMBOL        src
+  D:0026H         SYMBOL        numbytes
+  C:17CAH         LINE#         174
+  C:17D4H         LINE#         175
+  C:17D4H         LINE#         177
+  C:17DBH         LINE#         180
+  -------         ENDPROC       _FLASH_UPDATE
+  -------         PROC          _FLASH_WRITE
+  D:0028H         SYMBOL        dest
+  D:002AH         SYMBOL        src
+  D:002DH         SYMBOL        numbytes
+  -------         DO            
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/25/2026  22:03:18  PAGE 19
+
+
+  D:002FH         SYMBOL        i
+  -------         ENDDO         
+  C:156BH         LINE#         191
+  C:1575H         LINE#         192
+  C:1575H         LINE#         195
+  C:158EH         LINE#         196
+  C:15A7H         LINE#         197
+  C:15B1H         LINE#         198
+  -------         ENDPROC       _FLASH_WRITE
+  -------         PROC          _FLASH_READ
+  D:0021H         SYMBOL        dest
+  D:0024H         SYMBOL        src
+  D:0026H         SYMBOL        numbytes
+  -------         DO            
+  D:0028H         SYMBOL        i
+  -------         ENDDO         
+  C:1521H         LINE#         207
+  C:152BH         LINE#         208
+  C:152BH         LINE#         211
+  C:153BH         LINE#         212
+  C:155AH         LINE#         213
+  C:1564H         LINE#         214
+  C:156AH         LINE#         215
+  -------         ENDPROC       _FLASH_READ
+  -------         PROC          _FLASH_COPY
+  D:003AH         SYMBOL        dest
+  D:003CH         SYMBOL        src
+  D:003EH         SYMBOL        numbytes
+  -------         DO            
+  D:0040H         SYMBOL        i
+  -------         ENDDO         
+  C:15B2H         LINE#         224
+  C:15BEH         LINE#         225
+  C:15BEH         LINE#         228
+  C:15CEH         LINE#         230
+  C:15EAH         LINE#         231
+  C:15F4H         LINE#         232
+  -------         ENDPROC       _FLASH_COPY
+  -------         PROC          _FLASH_FILL
+  D:0008H         SYMBOL        addr
+  D:000AH         SYMBOL        length
+  D:000EH         SYMBOL        fill
+  -------         DO            
+  D:000FH         SYMBOL        i
+  -------         ENDDO         
+  C:16F6H         LINE#         241
+  C:16FAH         LINE#         242
+  C:16FAH         LINE#         245
+  C:1714H         LINE#         246
+  C:1723H         LINE#         247
+  C:172DH         LINE#         248
+  -------         ENDPROC       _FLASH_FILL
+  -------         ENDMOD        F330_FLASHUTILS
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/25/2026  22:03:18  PAGE 20
+
+
+  C:145AH         PUBLIC        main
+  C:10D4H         PUBLIC        _ReportMessage
+  C:1808H         PUBLIC        _delay_ms
+  B:0080H.0       PUBLIC        LED
+  C:1198H         PUBLIC        DataProcess
+  D:0098H         PUBLIC        SCON0
+  D:0011H         PUBLIC        frequecy
+  C:0021H         PUBLIC        FlashAddr
+  C:16B8H         SYMBOL        Com002C
+  C:16B8H         SYMBOL        L?0045
+  C:16CEH         SYMBOL        L?0046
+  C:16E3H         SYMBOL        L?0047
+  C:16EFH         SYMBOL        L?0049
+  C:16EFH         SYMBOL        L?0050
+  -------         PROC          COM002C
+  -------         ENDPROC       COM002C
+  -------         PROC          _DELAY_MS
+  D:0006H         SYMBOL        ms
+  -------         DO            
+  D:0004H         SYMBOL        i
+  -------         ENDDO         
+  C:1808H         LINE#         24
+  C:1808H         LINE#         25
+  C:1808H         LINE#         27
+  C:180CH         LINE#         28
+  C:180CH         LINE#         29
+  C:181AH         LINE#         30
+  C:181FH         LINE#         31
+  C:1821H         LINE#         32
+  -------         ENDPROC       _DELAY_MS
+  C:14BCH         SYMBOL        L?0048
+  -------         PROC          MAIN
+  C:145AH         LINE#         33
+  C:145AH         LINE#         34
+  C:145AH         LINE#         35
+  C:145DH         LINE#         36
+  C:1460H         LINE#         37
+  C:1479H         LINE#         38
+  C:148CH         LINE#         39
+  C:148CH         LINE#         40
+  C:1497H         LINE#         41
+  C:1497H         LINE#         42
+  C:149AH         LINE#         43
+  C:149FH         LINE#         44
+  C:149FH         LINE#         45
+  C:149FH         LINE#         46
+  C:14A2H         LINE#         47
+  C:14A4H         LINE#         48
+  C:14ABH         LINE#         49
+  C:14B0H         LINE#         50
+  C:14B0H         LINE#         52
+  C:14B0H         LINE#         54
+  C:14B0H         LINE#         55
+  C:14B3H         LINE#         56
+  C:14BAH         LINE#         57
+  C:14BAH         LINE#         58
+  C:14BCH         LINE#         59
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/25/2026  22:03:18  PAGE 21
+
+
+  -------         ENDPROC       MAIN
+  -------         PROC          _REPORTMESSAGE
+  D:0003H         SYMBOL        type
+  -------         DO            
+  D:0021H         SYMBOL        tmp
+  D:0025H         SYMBOL        i
+  -------         ENDDO         
+  C:10D4H         LINE#         61
+  C:10D4H         LINE#         62
+  C:10D4H         LINE#         63
+  C:10DDH         LINE#         65
+  C:10E9H         LINE#         66
+  C:10FAH         LINE#         67
+  C:10FAH         LINE#         68
+  C:10FAH         LINE#         69
+  C:10FAH         LINE#         70
+  C:10FAH         LINE#         71
+  C:10FAH         LINE#         72
+  C:10FAH         LINE#         73
+  C:10FAH         LINE#         74
+  C:10FAH         LINE#         75
+  C:10FAH         LINE#         76
+  C:10FFH         LINE#         77
+  C:10FFH         LINE#         78
+  C:10FFH         LINE#         79
+  C:10FFH         LINE#         80
+  C:10FFH         LINE#         81
+  C:10FFH         LINE#         82
+  C:1101H         LINE#         83
+  C:1101H         LINE#         84
+  C:1101H         LINE#         85
+  C:1101H         LINE#         86
+  C:1101H         LINE#         87
+  C:1101H         LINE#         88
+  C:1101H         LINE#         89
+  C:1101H         LINE#         90
+  C:1101H         LINE#         91
+  C:1101H         LINE#         92
+  C:1106H         LINE#         93
+  C:1106H         LINE#         94
+  C:1106H         LINE#         95
+  C:1106H         LINE#         96
+  C:1106H         LINE#         97
+  C:1106H         LINE#         98
+  C:1108H         LINE#         99
+  C:1108H         LINE#         100
+  C:1108H         LINE#         101
+  C:1108H         LINE#         102
+  C:110CH         LINE#         103
+  C:110FH         LINE#         104
+  C:1112H         LINE#         105
+  C:1115H         LINE#         106
+  C:1118H         LINE#         107
+  C:111BH         LINE#         108
+  C:111EH         LINE#         109
+  C:1121H         LINE#         110
+  C:1124H         LINE#         111
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/25/2026  22:03:18  PAGE 22
+
+
+  C:1128H         LINE#         112
+  C:112CH         LINE#         113
+  C:112CH         LINE#         114
+  C:112EH         LINE#         115
+  C:112EH         LINE#         116
+  C:112EH         LINE#         117
+  C:112EH         LINE#         118
+  C:1132H         LINE#         119
+  C:1135H         LINE#         120
+  C:1138H         LINE#         121
+  C:113BH         LINE#         122
+  C:113EH         LINE#         124
+  C:1141H         LINE#         125
+  C:1141H         LINE#         126
+  C:1148H         LINE#         127
+  C:114FH         LINE#         129
+  C:1152H         LINE#         130
+  C:1152H         LINE#         131
+  C:116BH         LINE#         132
+  C:1181H         LINE#         133
+  C:1188H         LINE#         135
+  C:118CH         LINE#         136
+  C:1190H         LINE#         137
+  C:1194H         LINE#         138
+  C:1197H         LINE#         139
+  C:1197H         LINE#         140
+  C:1197H         LINE#         141
+  C:1197H         LINE#         142
+  C:1197H         LINE#         143
+  C:1197H         LINE#         144
+  -------         ENDPROC       _REPORTMESSAGE
+  -------         PROC          DATAPROCESS
+  -------         DO            
+  I:004AH         SYMBOL        freq
+  I:004EH         SYMBOL        i
+  -------         ENDDO         
+  C:1198H         LINE#         145
+  C:1198H         LINE#         146
+  C:1198H         LINE#         147
+  C:11A1H         LINE#         148
+  C:11A5H         LINE#         149
+  C:11ABH         LINE#         150
+  C:11ABH         LINE#         151
+  C:11ADH         LINE#         152
+  C:11C3H         LINE#         153
+  C:11C3H         LINE#         154
+  C:11C7H         LINE#         155
+  C:11C7H         LINE#         156
+  C:11D9H         LINE#         157
+  C:11E7H         LINE#         158
+  C:11EEH         LINE#         159
+  C:11FCH         LINE#         161
+  C:1205H         LINE#         162
+  C:1205H         LINE#         163
+  C:1207H         LINE#         164
+  C:1209H         LINE#         166
+  C:1209H         LINE#         167
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/25/2026  22:03:18  PAGE 23
+
+
+  C:120EH         LINE#         168
+  C:121BH         LINE#         169
+  C:1234H         LINE#         170
+  C:1234H         LINE#         172
+  C:1234H         LINE#         173
+  C:1244H         LINE#         174
+  C:1244H         LINE#         176
+  C:1246H         LINE#         177
+  C:1248H         LINE#         179
+  C:1248H         LINE#         180
+  C:124DH         LINE#         182
+  C:124DH         LINE#         183
+  C:124DH         LINE#         184
+  -------         ENDPROC       DATAPROCESS
+  -------         ENDMOD        MAIN
+
+  -------         MODULE        PARA
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:1A40H         PUBLIC        freq
+  -------         ENDMOD        PARA
+
+  -------         MODULE        SERIAL
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  I:008FH         PUBLIC        SendCount
+  I:0090H         PUBLIC        TotalSendCount
+  B:0020H.0       PUBLIC        bReceiveData
+  I:0091H         PUBLIC        ReceiveFrame
+  B:0098H.0       PUBLIC        RI0
+  B:0098H.1       PUBLIC        TI0
+  I:00A5H         PUBLIC        ReceiveCount
+  I:00A6H         PUBLIC        TotalReceiveCount
+  D:0099H         PUBLIC        SBUF0
+  C:1374H         PUBLIC        Serial
+  I:00A7H         PUBLIC        SendFrame
+  C:186BH         PUBLIC        InitSerial
+  -------         PROC          INITSERIAL
+  C:186BH         LINE#         17
+  C:186BH         LINE#         18
+  C:186BH         LINE#         19
+  C:186FH         LINE#         20
+  C:1871H         LINE#         21
+  C:1874H         LINE#         22
+  C:1876H         LINE#         23
+  C:1878H         LINE#         24
+  -------         ENDPROC       INITSERIAL
+  -------         PROC          SERIAL
+  -------         DO            
+  D:0007H         SYMBOL        ret
+  -------         ENDDO         
+  C:1374H         LINE#         26
+  C:1381H         LINE#         29
+  C:1384H         LINE#         30
+  C:1384H         LINE#         31
+  C:1386H         LINE#         32
+  C:1388H         LINE#         34
+  C:1390H         LINE#         35
+  C:1390H         LINE#         36
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/25/2026  22:03:18  PAGE 24
+
+
+  C:1390H         LINE#         37
+  C:1390H         LINE#         38
+  C:1394H         LINE#         39
+  C:1398H         LINE#         40
+  C:139AH         LINE#         41
+  C:139AH         LINE#         42
+  C:139AH         LINE#         43
+  C:139AH         LINE#         44
+  C:13A3H         LINE#         45
+  C:13A7H         LINE#         46
+  C:13AAH         LINE#         47
+  C:13ACH         LINE#         48
+  C:13AEH         LINE#         49
+  C:13AEH         LINE#         50
+  C:13AEH         LINE#         51
+  C:13AEH         LINE#         52
+  C:13B7H         LINE#         53
+  C:13B7H         LINE#         54
+  C:13BDH         LINE#         55
+  C:13C0H         LINE#         56
+  C:13C2H         LINE#         58
+  C:13C2H         LINE#         59
+  C:13C6H         LINE#         60
+  C:13C6H         LINE#         61
+  C:13C6H         LINE#         62
+  C:13C6H         LINE#         63
+  C:13C6H         LINE#         64
+  C:13C6H         LINE#         65
+  C:13C9H         LINE#         66
+  C:13C9H         LINE#         67
+  C:13CBH         LINE#         68
+  C:13D4H         LINE#         69
+  C:13D4H         LINE#         70
+  C:13DBH         LINE#         71
+  C:13DEH         LINE#         72
+  C:13DEH         LINE#         73
+  C:13DEH         LINE#         74
+  -------         ENDPROC       SERIAL
+  -------         ENDMOD        SERIAL
+
+  -------         MODULE        ?C?FPMUL
+  C:0026H         PUBLIC        ?C?FPMUL
+  -------         ENDMOD        ?C?FPMUL
+
+  -------         MODULE        ?C?FPCMP
+  C:012EH         PUBLIC        ?C?FPCMP
+  C:012CH         PUBLIC        ?C?FPCMP3
+  -------         ENDMOD        ?C?FPCMP
+
+  -------         MODULE        ?C?FCAST
+  C:01AFH         PUBLIC        ?C?FCASTC
+  C:01AAH         PUBLIC        ?C?FCASTI
+  C:01A5H         PUBLIC        ?C?FCASTL
+  -------         ENDMOD        ?C?FCAST
+
+  -------         MODULE        ?C?CASTF
+  C:01E3H         PUBLIC        ?C?CASTF
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/25/2026  22:03:18  PAGE 25
+
+
+  -------         ENDMOD        ?C?CASTF
+
+  -------         MODULE        POW
+  D:003CH         PUBLIC        ?_pow?BYTE
+  C:0E10H         PUBLIC        _pow
+  -------         ENDMOD        POW
+
+  -------         MODULE        ?C?CHKFLOAT
+  C:0264H         PUBLIC        ?C?CHKFLOAT
+  -------         ENDMOD        ?C?CHKFLOAT
+
+  -------         MODULE        ?C?FPADD
+  C:0285H         PUBLIC        ?C?FPADD
+  C:0281H         PUBLIC        ?C?FPSUB
+  -------         ENDMOD        ?C?FPADD
+
+  -------         MODULE        ?C?FPNEG
+  C:0376H         PUBLIC        ?C?FPNEG
+  -------         ENDMOD        ?C?FPNEG
+
+  -------         MODULE        EXP
+  C:1286H         PUBLIC        _EXP
+  -------         ENDMOD        EXP
+
+  -------         MODULE        LOG
+  C:0BEAH         PUBLIC        _LOG
+  C:0BE6H         PUBLIC        _LOG10
+  -------         ENDMOD        LOG
+
+  -------         MODULE        ?C?FPDIV
+  C:038AH         PUBLIC        ?C?FPDIV
+  -------         ENDMOD        ?C?FPDIV
+
+  -------         MODULE        ?C?CLDPTR
+  C:0474H         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+  -------         MODULE        ?C?CSTPTR
+  C:048DH         PUBLIC        ?C?CSTPTR
+  -------         ENDMOD        ?C?CSTPTR
+
+  -------         MODULE        ?C?ILDPTR
+  C:049FH         PUBLIC        ?C?ILDPTR
+  -------         ENDMOD        ?C?ILDPTR
+
+  -------         MODULE        ?C?ILDOPTR
+  C:04CAH         PUBLIC        ?C?ILDOPTR
+  -------         ENDMOD        ?C?ILDOPTR
+
+  -------         MODULE        ?C?ISTPTR
+  C:0502H         PUBLIC        ?C?ISTPTR
+  -------         ENDMOD        ?C?ISTPTR
+
+  -------         MODULE        ?C?ISTOPTR
+  C:0521H         PUBLIC        ?C?ISTOPTR
+  -------         ENDMOD        ?C?ISTOPTR
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/25/2026  22:03:18  PAGE 26
+
+
+  -------         MODULE        ?C?LMUL
+  C:054EH         PUBLIC        ?C?LMUL
+  -------         ENDMOD        ?C?LMUL
+
+  -------         MODULE        ?C?ULDIV
+  C:05D9H         PUBLIC        ?C?ULDIV
+  -------         ENDMOD        ?C?ULDIV
+
+  -------         MODULE        ?C?LNEG
+  C:066BH         PUBLIC        ?C?LNEG
+  -------         ENDMOD        ?C?LNEG
+
+  -------         MODULE        ?C?ULCMP
+  C:0679H         PUBLIC        ?C?ULCMP
+  -------         ENDMOD        ?C?ULCMP
+
+  -------         MODULE        ?C?LSHL
+  C:068AH         PUBLIC        ?C?LSHL
+  -------         ENDMOD        ?C?LSHL
+
+  -------         MODULE        ?C?LLDIDATA
+  C:069DH         PUBLIC        ?C?LLDIDATA
+  -------         ENDMOD        ?C?LLDIDATA
+
+  -------         MODULE        ?C?LLDCODE
+  C:06A9H         PUBLIC        ?C?LLDCODE
+  -------         ENDMOD        ?C?LLDCODE
+
+  -------         MODULE        ?C?LLDIDATA0
+  C:06B9H         PUBLIC        ?C?LLDIDATA0
+  -------         ENDMOD        ?C?LLDIDATA0
+
+  -------         MODULE        ?C?LLDCODE0
+  C:06C6H         PUBLIC        ?C?LLDCODE0
+  -------         ENDMOD        ?C?LLDCODE0
+
+  -------         MODULE        ?C?LSTIDATA
+  C:06D6H         PUBLIC        ?C?LSTIDATA
+  -------         ENDMOD        ?C?LSTIDATA
+
+  -------         MODULE        ?C?LSTKIDATA
+  C:06E2H         PUBLIC        ?C?LSTKIDATA
+  -------         ENDMOD        ?C?LSTKIDATA
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?CO?PARA
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_RFFC2071_READ?RFFC2071
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_FLASH_FILL?F330_FLASHUTILS
+
+Program Size: data=184.2 xdata=0 code=6336
+LINK/LOCATE RUN COMPLETE.  3 WARNING(S),  0 ERROR(S)

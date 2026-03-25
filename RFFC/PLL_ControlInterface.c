@@ -1,5 +1,5 @@
 #include "RFFC2071.h"
-#define  MAX_FRE (270000)    	//2.7G
+#define  MAX_FRE (600000)    	//6G
 #define  MIN_FRE (8500) 			//85M
 
 /*

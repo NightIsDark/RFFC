@@ -4,7 +4,7 @@
 
 #define Num_Max 10
 
-#define REF_IN (1000)   			//10MHz
+#define REF_IN (2600)   			//10MHz
 #define REF_DIV (1)   				//10MHz
 
 
@@ -253,7 +253,7 @@ void RFFC2071_N_INIT(U32 Fre,S_RFFC2071_REG * rffc2071_reg_t)
 	U8 i,n_lo;
 	
 	n_lo = 540000 / Fre ;	 //10kHz 
-	
+
 	for(i=1;i<=5;i++)
 	{
 		if(n_lo < pow(2,i))

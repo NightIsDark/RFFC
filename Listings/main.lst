@@ -1,0 +1,214 @@
+C51 COMPILER V9.56.0.0   MAIN                                                              03/25/2026 22:03:18 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE USER\main.c OPTIMIZE(9,SPEED) BROWSE INCDIR(.\driver;.\F33x;.\RFFC) DEBU
+                    -G OBJECTEXTEND PRINT(.\Listings\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include "serial.h"
+   2          #include "F330_FlashPrimitives.h"
+   3          #include "F330_FlashUtils.h"
+   4          #include "compiler_defs.h"
+   5          #include "PLL_ControlInterface.h"
+   6          sbit LED  = P0 ^ 0;
+   7          
+   8          
+   9          typedef enum 
+  10          {
+  11            CMD_ERROR,
+  12            PAR_ERROR,
+  13            STF_CMD,
+  14            GTF_CMD,
+  15          }MESSAGE_T;
+  16          
+  17          extern void Init_Device(void);
+  18          void DataProcess(void);
+  19          void ReportMessage(MESSAGE_T type);
+  20          
+  21          FLADDR code FlashAddr = 0x1A40; 
+  22          U32 frequecy  = 0;
+  23          #define DEFAULT_FRE (186200)
+  24          void delay_ms(U16 ms)
+  25          {
+  26   1        U16 i;
+  27   1        while(ms)
+  28   1        {
+  29   2          for(i=0;i<1000;i++);
+  30   2          ms--; 
+  31   2        }
+  32   1      }
+  33          int main(void)
+  34          {
+  35   1        Init_Device();    
+  36   1        InitSerial();
+  37   1        FLASH_Read((char *)&frequecy,FlashAddr,4);  
+  38   1        if(frequecy ==  0)
+  39   1        {
+  40   2          frequecy  = DEFAULT_FRE;
+  41   2        }
+  42   1        pll_set(frequecy);
+  43   1        ReportMessage(GTF_CMD);
+  44   1        while(1)
+  45   1        {
+  46   2            DataProcess();
+  47   2            LED = ~LED;
+  48   2            delay_ms(1000);   
+  49   2            if(pll_get_lockstate())
+  50   2            {
+  51   3                
+  52   3            }
+  53   2            else
+  54   2            {
+C51 COMPILER V9.56.0.0   MAIN                                                              03/25/2026 22:03:18 PAGE 2   
+
+  55   3              pll_set(frequecy);
+  56   3              delay_ms(3000);
+  57   3            }
+  58   2        }
+  59   1      }
+  60          
+  61          void ReportMessage(MESSAGE_T type)
+  62          {
+  63   1        U32 tmp = 0;
+  64   1        unsigned char i;
+  65   1        tmp = frequecy;
+  66   1        switch(type)
+  67   1        {
+  68   2          case CMD_ERROR:
+  69   2          {
+  70   3            SendFrame[0]=SOF;
+  71   3            SendFrame[1]='E';
+  72   3            SendFrame[2]='R';
+  73   3            SendFrame[3]='R';
+  74   3            SendFrame[4]='O';
+  75   3            SendFrame[5]='R'; 
+  76   3            SendFrame[6]='1'; 
+  77   3            SendFrame[7]='!';       
+  78   3            SendFrame[8]=EOF;
+  79   3            SendCount=0;
+  80   3            TotalSendCount=9;
+  81   3            SCON0 |=0x02; 
+  82   3            break;
+  83   3          }
+  84   2          case PAR_ERROR:
+  85   2          {
+  86   3            SendFrame[0]=SOF;
+  87   3            SendFrame[1]='E';
+  88   3            SendFrame[2]='R';
+  89   3            SendFrame[3]='R';
+  90   3            SendFrame[4]='O';
+  91   3            SendFrame[5]='R'; 
+  92   3            SendFrame[6]='2'; 
+  93   3            SendFrame[7]='!';       
+  94   3            SendFrame[8]=EOF;
+  95   3            SendCount=0;
+  96   3            TotalSendCount=9;
+  97   3            SCON0 |=0x02; 
+  98   3            break;
+  99   3          }
+ 100   2          case  STF_CMD:
+ 101   2          {
+ 102   3            SendFrame[0]=SOF;
+ 103   3            SendFrame[1]='S';
+ 104   3            SendFrame[2]='T';
+ 105   3            SendFrame[3]='F';
+ 106   3            SendFrame[4]=':';
+ 107   3            SendFrame[5]='O'; 
+ 108   3            SendFrame[6]='K'; 
+ 109   3            SendFrame[7]='!';       
+ 110   3            SendFrame[8]=EOF;
+ 111   3            SendCount=0;
+ 112   3            TotalSendCount=9;
+ 113   3            SCON0 |=0x02; 
+ 114   3            break;
+ 115   3          }
+ 116   2          case  GTF_CMD:
+C51 COMPILER V9.56.0.0   MAIN                                                              03/25/2026 22:03:18 PAGE 3   
+
+ 117   2          {
+ 118   3            SendFrame[0]=SOF;
+ 119   3            SendFrame[1]='F';
+ 120   3            SendFrame[2]='R';
+ 121   3            SendFrame[3]='Q';
+ 122   3            SendFrame[4]=':';
+ 123   3            
+ 124   3            for(i = 14;i>10;i--)
+ 125   3            {       
+ 126   4              SendFrame[i] = 0;
+ 127   4            }
+ 128   3            
+ 129   3            for(i = 10;i>4;i--)
+ 130   3            {       
+ 131   4              SendFrame[i]  = tmp%10 + 0x30;    
+ 132   4              tmp /=  10;
+ 133   4            } 
+ 134   3      //      SendFrame[14]=0x30;     
+ 135   3            SendFrame[15]=EOF;
+ 136   3            SendCount=0;
+ 137   3            TotalSendCount=16;
+ 138   3            SCON0 |=0x02; 
+ 139   3            break;
+ 140   3          }
+ 141   2          default:
+ 142   2            break;
+ 143   2        }
+ 144   1      }
+ 145          void DataProcess(void)
+ 146          {
+ 147   1        U32 idata freq  = 0;
+ 148   1        U8  idata i = 0;
+ 149   1        if(bReceiveData)
+ 150   1        {
+ 151   2          bReceiveData  = 0;
+ 152   2          if((ReceiveFrame[1]=='S')&&(ReceiveFrame[2]=='T')&&(ReceiveFrame[3]=='F'))  //set the frequecy
+ 153   2          {
+ 154   3            for(i=5;i<10;i++)
+ 155   3            {
+ 156   4              freq  +=  ReceiveFrame[i]-0x30;
+ 157   4              freq  *=  10;
+ 158   4            }
+ 159   3            freq  +=  (ReceiveFrame[10]-0x30);  
+ 160   3            //freq  = freq/10000;
+ 161   3            if(0 == pll_set(freq))
+ 162   3            {
+ 163   4              ReportMessage(PAR_ERROR);
+ 164   4            }
+ 165   3            else
+ 166   3            {
+ 167   4              ReportMessage(STF_CMD); 
+ 168   4              frequecy  = freq; 
+ 169   4              FLASH_Update(FlashAddr,(char *)&frequecy,4);          
+ 170   4            }   
+ 171   3            
+ 172   3          }
+ 173   2          else if((ReceiveFrame[1]=='G')&&(ReceiveFrame[2]=='T')&&(ReceiveFrame[3]=='F'))  //get the frequecy
+ 174   2          {
+ 175   3            //todo
+ 176   3            ReportMessage(GTF_CMD);
+ 177   3          }
+ 178   2          else
+C51 COMPILER V9.56.0.0   MAIN                                                              03/25/2026 22:03:18 PAGE 4   
+
+ 179   2          {
+ 180   3            ReportMessage(CMD_ERROR);
+ 181   3            //error processing
+ 182   3          } 
+ 183   2        }
+ 184   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    576    ----
+   CONSTANT SIZE    =      2    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4       5
+   IDATA SIZE       =   ----       5
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
